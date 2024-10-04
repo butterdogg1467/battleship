@@ -4,7 +4,7 @@ describe("Ship", () => {
     let ship
 
     beforeEach(() => {
-        ship = new Ship()
+        ship = new Ship([1,1], [1,3])
     })
 
     test('hit function increases hits', () => {
@@ -33,29 +33,31 @@ describe("Ship", () => {
 
 })
 
-describe("Gameboard", () => {
-    let gameboard
+// describe("Gameboard", () => {
+//     let gameboard
 
-    beforeEach(() => {
-        gameboard = new Gameboard()
-    })
+//     beforeEach(() => {
+//         gameboard = new Gameboard()
+//         gameboard.placeShip([1,1], [1,3])
+//     })
 
-    test('Gameboard hits ship when correct cordinate is picked', () => {
-        expect(gameboard.ship.hits).toBe(0)
+//     test('Gameboard hits ship when correct cordinate is picked', () => {
+//         expect(gameboard.ship.hits).toBe(0)
 
-        gameboard.receiveAttack([1, 1])
-        expect(gameboard.ship.hits).toBe(1)
-        gameboard.receiveAttack([1, 2])
-        expect(gameboard.ship.hits).toBe(2)
-    })
 
-    test('Gameboard pushes cords to missed when wrong cords are picked', () => {
-        expect(gameboard.ship.hits).toBe(0)
+//         gameboard.receiveAttack([1, 1])
+//         expect(gameboard.ship.hits).toBe(1)
+//         gameboard.receiveAttack([1, 2])
+//         expect(gameboard.ship.hits).toBe(2)
+//     })
 
-        gameboard.receiveAttack([1, 4])
-        expect(gameboard.missed).toStrictEqual([[1,4]])
-        gameboard.receiveAttack([1, 7])
-        expect(gameboard.missed).toStrictEqual([[1,4], [1,7]])
-    })
+//     test('Gameboard pushes cords to missed when wrong cords are picked', () => {
+//         expect(gameboard.ship.hits).toBe(0)
 
-})
+//         gameboard.receiveAttack([1, 4])
+//         expect(gameboard.missed).toStrictEqual([[1,4]])
+//         gameboard.receiveAttack([1, 7])
+//         expect(gameboard.missed).toStrictEqual([[1,4], [1,7]])
+//     })
+
+// })

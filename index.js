@@ -1,7 +1,11 @@
 class Ship {
-    length = 0
-    hits = 0
-    sunk = false
+    constructor ([x, y], [x2, y2]) {
+        this.length = 0
+        this.hits = 0
+        this.sunk = false
+        this.start = [x,y]
+        this.end = [x2, y2]
+    }
 
     hit() {
         this.hits++
@@ -12,31 +16,34 @@ class Ship {
     isSunk() {
         if (this.hits >= this.length) {
             this.sunk = true
-            return
-        } else {
-            this.sunk = false
-            return
-        }
-    }
-}
-
-class Gameboard {
-    ship = new Ship()
-    shipStart = [1, 1]
-    shipEnd = [1, 3]
-    missed = []
-    receiveAttack([x, y]) {
-        if ((x === this.shipStart[0] && y === this.shipStart[1] )
-            ||(x === this.shipEnd[0] && y === this.shipEnd[1])
-            ||(x >= this.shipStart[0] && y >= this.shipStart[1]
-            &&x <= this.shipEnd[0] && y <= this.shipEnd[1])) {
-            this.ship.hit()
             return true
         } else {
-            this.missed.push([x,y])
+            this.sunk = false
             return false
         }
     }
 }
+
+// class Gameboard {
+//     ships = []
+//     missed = []
+//     placeShip([x,y], [x2,y2]) {
+//         this.ship = new Ship()
+//         this.shipStart = [x, y]
+//         this.shipEnd = [x2, y2]
+//     }
+//     receiveAttack([x, y]) {
+//         if ((x === this.shipStart[0] && y === this.shipStart[1] )
+//             ||(x === this.shipEnd[0] && y === this.shipEnd[1])
+//             ||(x >= this.shipStart[0] && y >= this.shipStart[1]
+//             &&x <= this.shipEnd[0] && y <= this.shipEnd[1])) {
+//             this.ship.hit()
+//             return true
+//         } else {
+//             this.missed.push([x,y])
+//             return false
+//         }
+//     }
+// }
 
 module.exports = { Ship, Gameboard }
