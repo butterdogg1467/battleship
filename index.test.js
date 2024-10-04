@@ -23,12 +23,22 @@ describe("Ship", () => {
     test('ship sinks when too many hits', () => {
         expect(ship.sunk).toBe(false)
 
-        ship.length = 3
-
         ship.hit()
         ship.hit()
         ship.hit()
         expect(ship.sunk).toBe(true)
+    })
+
+    test('ship doesnt sink when hits are less than length', () => {
+        expect(ship.sunk).toBe(false)
+
+        ship.hit()
+        ship.hit()
+        expect(ship.sunk).toBe(false)
+    })
+
+    test('ship length is calculated properly', () => {
+        expect(ship.length).toBe(3)
     })
 
 })
