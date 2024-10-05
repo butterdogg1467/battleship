@@ -28,9 +28,7 @@ class Gameboard {
     ships = []
     missed = []
     placeShip([x,y], [x2,y2]) {
-        this.ship = new Ship()
-        this.shipStart = [x, y]
-        this.shipEnd = [x2, y2]
+        this.ship = new Ship([x,y], [x2, y2])
     }
     receiveAttack([x, y]) {
         if ((x === this.shipStart[0] && y === this.shipStart[1] )
