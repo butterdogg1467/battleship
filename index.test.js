@@ -43,31 +43,54 @@ describe("Ship", () => {
 
 })
 
-// describe("Gameboard", () => {
-//     let gameboard
+describe("Gameboard", () => {
+    let gameboard
 
-//     beforeEach(() => {
-//         gameboard = new Gameboard()
-//         gameboard.placeShip([1,1], [1,3])
-//     })
+    beforeEach(() => {
+        gameboard = new Gameboard()
+        gameboard.placeShip([1,1], [1,3])
+    })
 
-//     test('Gameboard hits ship when correct cordinate is picked', () => {
-//         expect(gameboard.ship.hits).toBe(0)
+    test('Gameboard hits ship when correct cordinate is picked', () => {
+        expect(gameboard.ship.hits).toBe(0)
 
 
-//         gameboard.receiveAttack([1, 1])
-//         expect(gameboard.ship.hits).toBe(1)
-//         gameboard.receiveAttack([1, 2])
-//         expect(gameboard.ship.hits).toBe(2)
-//     })
+        gameboard.receiveAttack([1, 1])
+        expect(gameboard.ship.hits).toBe(1)
+        gameboard.receiveAttack([1, 2])
+        expect(gameboard.ship.hits).toBe(2)
+    })
 
-//     test('Gameboard pushes cords to missed when wrong cords are picked', () => {
-//         expect(gameboard.ship.hits).toBe(0)
+    test('Gameboard pushes cords to missed when wrong cords are picked', () => {
+        expect(gameboard.ship.hits).toBe(0)
 
-//         gameboard.receiveAttack([1, 4])
-//         expect(gameboard.missed).toStrictEqual([[1,4]])
-//         gameboard.receiveAttack([1, 7])
-//         expect(gameboard.missed).toStrictEqual([[1,4], [1,7]])
-//     })
+        gameboard.receiveAttack([1, 4])
+        expect(gameboard.missed).toStrictEqual([[1,4]])
+        gameboard.receiveAttack([1, 7])
+        expect(gameboard.missed).toStrictEqual([[1,4], [1,7]])
+    })
 
-// })
+    test('New ships are pushed to ships array when created', () => {
+        expect(gameboard.ships.length).toBe(1)
+
+        gameboard.placeShip([2,3], [2,5])
+
+        expect(gameboard.ships.length).toBe(2)
+
+
+    })
+
+    test('Ships are removed from ships array when sunk', () => {
+        expect(gameboard.ships.length).toBe(1)
+
+        gameboard.placeShip([2,3], [2,5])
+        expect(gameboard.ships.length).toBe(2)
+
+        gameboard.receiveAttack([2,4])
+        gameboard.receiveAttack([2,3])
+        gameboard.receiveAttack([2,5])
+
+        expect(gameboard.ships.length).toBe(1)
+    })
+
+})

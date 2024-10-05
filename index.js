@@ -29,18 +29,24 @@ class Gameboard {
     missed = []
     placeShip([x,y], [x2,y2]) {
         this.ship = new Ship([x,y], [x2, y2])
+        this.ships.push(this.ship)
     }
     receiveAttack([x, y]) {
-        if ((x === this.shipStart[0] && y === this.shipStart[1] )
-            ||(x === this.shipEnd[0] && y === this.shipEnd[1])
-            ||(x >= this.shipStart[0] && y >= this.shipStart[1]
-            &&x <= this.shipEnd[0] && y <= this.shipEnd[1])) {
-            this.ship.hit()
-            return true
-        } else {
-            this.missed.push([x,y])
-            return false
+        for (let i = 0; i < this.ships.length; i++) {
+            if ((x === this.ships[i].start[0] && y === this.ships[i].start[1])
+                ||(x === this.ships[i].end[0] && y === this.ships[i].end[1])
+                ||(x >= this.ships[i].start[0] && y >= this.ships[i].start[1]
+                &&x <= this.ships[i].end[0] && y <= this.ships[i].end[1])) {
+                this.ships[i].hit()
+                if (this.ships[i].isSunk()) {
+                    this.ships.splice(i,1)
+                }
+                return true
+            } else {
+                this.missed.push([x,y])
+            }
         }
+        return false
     }
 }
 
