@@ -1,6 +1,6 @@
 class Ship {
     constructor ([x, y], [x2, y2]) {
-        this.length = Math.max(Math.abs(x2-x), Math.abs(y2-y) + 1)
+        this.length = Math.max(Math.abs(x2-x), Math.abs(y2-y))+1
         this.hits = 0
         this.sunk = false
         this.start = [x,y]
