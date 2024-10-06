@@ -58,12 +58,14 @@ class Gameboard {
 class Players {
     player  = {
         board: new Gameboard(),
-
+        wins: 0,
+        losses: 0
     }
 
     computer  = {
         board: new Gameboard(),
-
+        wins: 0,
+        losses: 0
     }
 }
 
