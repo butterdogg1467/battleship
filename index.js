@@ -60,6 +60,11 @@ class Players {
         board: new Gameboard(),
 
     }
+
+    computer  = {
+        board: new Gameboard(),
+
+    }
 }
 
 module.exports = { Ship, Gameboard }
