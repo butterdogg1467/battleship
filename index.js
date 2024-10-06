@@ -27,6 +27,7 @@ class Ship {
 class Gameboard {
     ships = []
     missed = []
+    shipsSunk = false
     placeShip([x,y], [x2,y2]) {
         this.ship = new Ship([x,y], [x2, y2])
         this.ships.push(this.ship)
@@ -40,6 +41,10 @@ class Gameboard {
                 this.ships[i].hit()
                 if (this.ships[i].isSunk()) {
                     this.ships.splice(i,1)
+                    if (this.ships.length <= 0) {
+                        this.shipsSunk = true
+                        return true
+                    }   
                 }
                 return true
             } else {
@@ -47,6 +52,13 @@ class Gameboard {
             }
         }
         return false
+    }
+}
+
+class Players {
+    player  = {
+        board: new Gameboard(),
+
     }
 }
 

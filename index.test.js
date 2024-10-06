@@ -93,4 +93,24 @@ describe("Gameboard", () => {
         expect(gameboard.ships.length).toBe(1)
     })
 
+    test('shipsSunk returns as true when ships array is empty', () => {
+        expect(gameboard.ships.length).toBe(1)
+
+        gameboard.placeShip([2,3], [2,5])
+        expect(gameboard.ships.length).toBe(2)
+
+        gameboard.receiveAttack([2,4])
+        gameboard.receiveAttack([2,3])
+        gameboard.receiveAttack([2,5])
+
+        expect(gameboard.ships.length).toBe(1)
+
+        gameboard.receiveAttack([1,2])
+        gameboard.receiveAttack([1,3])
+        gameboard.receiveAttack([1,1])
+
+        expect(gameboard.ships.length).toBe(0)
+        expect(gameboard.shipsSunk).toBe(true)
+    })
+
 })
