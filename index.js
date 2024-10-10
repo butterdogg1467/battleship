@@ -56,17 +56,12 @@ class Gameboard {
 }
 
 class Players {
-    player  = {
-        board: new Gameboard(),
-        wins: 0,
-        losses: 0
-    }
-
-    computer  = {
-        board: new Gameboard(),
-        wins: 0,
-        losses: 0
+    constructor (isComputer = false) {
+        this.board = new Gameboard()
+        this.wins = 0
+        this.losses = 0
+        this.isComputer = isComputer
     }
 }
 
-module.exports = { Ship, Gameboard }
+module.exports = { Ship, Gameboard, Players }

@@ -1,4 +1,4 @@
-let { Ship, Gameboard } = require('./index.js');
+let { Ship, Gameboard, Players } = require('./index.js');
 
 describe("Ship", () => {
     let ship
@@ -112,5 +112,103 @@ describe("Gameboard", () => {
         expect(gameboard.ships.length).toBe(0)
         expect(gameboard.shipsSunk).toBe(true)
     })
+
+})
+
+describe("Players", () => {
+    let player
+
+    test("Player is created when isComputer is false", () => {
+        player = new Players()
+
+        expect(player.isComputer).toBe(false)
+    })
+
+    test("Computer player is created when isComputer is true", () => {
+        player = new Players(true)
+
+        expect(player.isComputer).toBe(true)
+    })
+
+    test("Player can place ships", () => {
+        player = new Players()
+
+        player.board.placeShip([1,2], [1,4])
+
+        expect(player.board.ships.length).toBe(1)
+    })
+
+    test("Player recieve hits on ships", () => {
+        player = new Players()
+
+        player.board.placeShip([1,2], [1,4])
+        player.board.placeShip([2,4], [2,5])
+
+        expect(player.board.ships.length).toBe(2)
+
+        player.board.receiveAttack([1,3])
+
+        expect(player.board.ships[0].hits).toBe(1)
+
+        expect(player.board.ships[1].hits).toBe(0)
+    })
+
+    test("Player ships can sink", () => {
+        player = new Players()
+
+        player.board.placeShip([1,2], [1,4])
+        player.board.placeShip([2,4], [2,5])
+
+        expect(player.board.ships.length).toBe(2)
+
+        player.board.receiveAttack([1,3])
+        player.board.receiveAttack([1,4])
+        player.board.receiveAttack([1,2])
+
+        expect(player.board.ships.length).toBe(1)
+
+    })
+
+    
+
+    test("Computer can place ships", () => {
+        computer = new Players(true)
+        
+        computer.board.placeShip([1,2], [1,4])
+
+        expect(computer.board.ships.length).toBe(1)
+    })
+
+    test("Computer recieve hits on ships", () => {
+        computer = new Players(true)
+
+        computer.board.placeShip([1,2], [1,4])
+        computer.board.placeShip([2,4], [2,5])
+
+        expect(computer.board.ships.length).toBe(2)
+
+        computer.board.receiveAttack([1,3])
+
+        expect(computer.board.ships[0].hits).toBe(1)
+
+        expect(computer.board.ships[1].hits).toBe(0)
+    })
+
+    test("Computer ships can sink", () => {
+        computer = new Players(true)
+
+        computer.board.placeShip([1,2], [1,4])
+        computer.board.placeShip([2,4], [2,5])
+
+        expect(computer.board.ships.length).toBe(2)
+
+        computer.board.receiveAttack([1,3])
+        computer.board.receiveAttack([1,4])
+        computer.board.receiveAttack([1,2])
+
+        expect(computer.board.ships.length).toBe(1)
+
+    })
+
 
 })
