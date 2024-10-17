@@ -5,6 +5,12 @@ body {
     background-repeat: no-repeat;
     height: 100vh;
     width: 100vw;
+    padding-bottom: 200px;
+    padding-top: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .maintitle {
@@ -22,3 +28,37 @@ header {
     display: flex;
     justify-content: center;
 }
+
+#playerboard {
+    background-color: red;
+    width: 650px;
+    height: 650px;
+    grid-column: 1/2;
+}
+
+#computerboard {
+    background-color: blue;
+    width: 650px;
+    height: 650px;
+    grid-column: 2/3;
+}
+
+.boardcontainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+    font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 25px;
+    align-items: center;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.cell:hover {
+    background-color: purple;
+}
+
