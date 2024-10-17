@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     createBoard('playerboard')
     createBoard('computerboard')
 
+    player.board.placeShip([1,1], [1,3])
+
 
 
 
