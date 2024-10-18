@@ -25,9 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     cordsdisplay.textContent = '(' + 0 + ', '+ 0 + ')'
                 })
 
-                cell.addEventListener('click', () => {
-                    console.log(cell.dataset)
-                })
+                if (boardID === 'computerboard') {
+                    cell.addEventListener('click', () => {
+                        detectHit(cell)
+                    })
+                }
             }
         
         }
@@ -62,17 +64,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function shipVisual(cords) {
+    function shipVisual(cords, boardID) {
         cords.forEach(cord => {
             let x = cord[1]
             let y = cord[0]
 
-            let cell = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
+            let cell = document.querySelector(`#${boardID} [data-x="${x}"][data-y="${y}"]`)
+            cell.hasShip = true
 
-            cell.classList.add('ship')
+            if (boardID === 'playerboard') {
+                cell.classList.add('ship')
+            } else {
+                return
+            }
         });
     }
 
+    function detectHit(cell) {
+        let hits = []
+        if (cell.hasShip === true) {
+            alert('Hit!!')
+            hits.push(cell)
+            cell.classList.add('hit')
+            computer.board.ships[0].hit()
+            console.log(computer.board.ships[0].hits)
+        } else {
+            console.log('Missed!!')
+        }
+    }
 
     createBoard('playerboard')
     createBoard('computerboard')
@@ -82,9 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     player.board.placeShip(shipCordsStart, shipCordsEnd)
 
-    computer.board.placeShip(shipCordsStart, shipCordsEnd)
+    computer.board.placeShip([4, 5], [4, 7])
 
-    shipVisual(middleCords(shipCordsStart, shipCordsEnd))
+    shipVisual(middleCords(shipCordsStart, shipCordsEnd), 'playerboard')
+
+    shipVisual(middleCords([4, 5], [4, 7]), 'computerboard')
+
 
 
 

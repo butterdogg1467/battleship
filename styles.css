@@ -170,3 +170,7 @@ header {
 .ship {
     background-color: gray;
 }
+
+.hit {
+    background-color: orange;
+}
