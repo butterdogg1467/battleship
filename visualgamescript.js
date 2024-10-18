@@ -66,8 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function shipVisual(cords, boardID) {
         cords.forEach(cord => {
-            let x = cord[1]
-            let y = cord[0]
+            let x = cord[0]
+            let y = cord[1]
 
             let cell = document.querySelector(`#${boardID} [data-x="${x}"][data-y="${y}"]`)
             cell.hasShip = true
@@ -82,16 +82,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function detectHit(cell) {
         let hits = []
-        if (cell.hasShip === true) {
-            alert('Hit!!')
+        let x = parseInt(cell.dataset.x)
+        let y = parseInt(cell.dataset.y)
+        let coords = [x, y]
+        if (computer.board.receiveAttack([x, y])) {
+            console.log('Hit!!')
             hits.push(cell)
             cell.classList.add('hit')
-            computer.board.ships[0].hit()
-            console.log(computer.board.ships[0].hits)
         } else {
             console.log('Missed!!')
         }
+
+        computerHit()
     }
+
+    function computerHit() {
+        let hits = []
+        let x = Math.floor(Math.random() * (9 - 0) + 0)
+        let y = Math.floor(Math.random() * (9 - 0) + 0)
+        let cell = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
+        if (player.board.receiveAttack([x, y])) {
+            console.log('Computer Hit!!')
+            hits.push(cell)
+            cell.classList.add('hit')
+            console.log([x, y])
+        } else {
+            console.log([x, y])
+        }
+    }
+
 
     createBoard('playerboard')
     createBoard('computerboard')
