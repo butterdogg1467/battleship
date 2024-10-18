@@ -27,6 +27,8 @@ body {
 header {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #playerboard {
@@ -70,7 +72,7 @@ header {
 }
 
 .cell:hover {
-    background-color: rgba(128, 0, 0, 0.5);
+    background-color: rgba(128, 0, 0, 0.8);
 }
 
 .playerstuff {
@@ -159,3 +161,12 @@ header {
     content: "9";
 }
 
+.cordsdisplay {
+    align-self: center;    
+    font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 50px;
+}
+
+.ship {
+    background-color: gray;
+}
