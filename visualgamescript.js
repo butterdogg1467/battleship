@@ -81,6 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function detectHit(cell) {
+        if (cell.isHit === true) {
+            return
+        }
         let hits = []
         let x = parseInt(cell.dataset.x)
         let y = parseInt(cell.dataset.y)
@@ -89,11 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Hit!!')
             hits.push(cell)
             cell.classList.add('hit')
+            cell.isHit = true
         } else {
+            cell.classList.add('missed')
             console.log('Missed!!')
+            cell.isHit = true
         }
 
-        computerHit()
+        setTimeout(computerHit, 500)
     }
 
     function computerHit() {
@@ -101,13 +107,19 @@ document.addEventListener('DOMContentLoaded', () => {
         let x = Math.floor(Math.random() * (9 - 0) + 0)
         let y = Math.floor(Math.random() * (9 - 0) + 0)
         let cell = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
+        if (cell.isHit === true) {
+            return
+        }
         if (player.board.receiveAttack([x, y])) {
             console.log('Computer Hit!!')
             hits.push(cell)
             cell.classList.add('hit')
             console.log([x, y])
+            cell.isHit = true
         } else {
+            cell.classList.add('missed')
             console.log([x, y])
+            cell.isHit = true
         }
     }
 

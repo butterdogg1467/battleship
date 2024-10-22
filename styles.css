@@ -171,6 +171,13 @@ header {
     background-color: gray;
 }
 
-.hit {
-    background-color: orange;
+
+.hit::after {
+    content: 'X';
+    color: darkred;
+}
+
+.missed::after {
+    content: 'X';
+    color: white;
 }
