@@ -68,6 +68,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function checkPlacement(start, end) {
+        let range = middleCords(start, end)
+        
+        for(let i = 0; i < range.length; i++){
+            let x = range[i][0]
+            let y = range[i][1]
+
+            let cell = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
+            
+            if (cell.hasShip) {
+                console.log('true')
+                return true
+            } else if (!cell.hasShip) {
+                console.log('false')
+                return false
+            }
+        }
+
+    }
+
     function shipVisual(cords, boardID) {
         cords.forEach(cord => {
             let x = cord[0]
@@ -75,13 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let cell = document.querySelector(`#${boardID} [data-x="${x}"][data-y="${y}"]`)
             cell.hasShip = true
+            cell.checkPlacement(cords)
 
             if (boardID === 'playerboard') {
                 cell.classList.add('ship')
             } else {
                 return
             }
-        });
+        })
     }
 
     function detectHit(cell) {
@@ -127,10 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     createBoard('playerboard')
     createBoard('computerboard')
-
 
     cordsSubmit.addEventListener('click', () => {
         let shipCordsStart = startCordsBox.value   
@@ -140,59 +159,24 @@ document.addEventListener('DOMContentLoaded', () => {
         let shipCordsEndArr = JSON.parse("[" + shipCordsEnd + "]")
 
         player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+        checkPlacement(shipCordsStartArr, shipCordsEndArr)
         shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
 
         shipCordsStart = ''
         shipCordsEnd = ''
         shipCordsStartArr = []
         shipCordsEndArr = []
+
+        startCordsBox.value = ''
+        endCordsBox.value = ''
     })
 
     computer.board.placeShip([4, 5], [4, 7])
-
 
     shipVisual(middleCords([4, 5], [4, 7]), 'computerboard')
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 })
+

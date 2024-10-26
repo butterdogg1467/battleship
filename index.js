@@ -1,3 +1,5 @@
+let { middleCords } = require('./visualgamescript.js')
+
 class Ship {
     constructor ([x, y], [x2, y2]) {
         this.length = Math.max(Math.abs(x2-x), Math.abs(y2-y))+1
@@ -9,7 +11,7 @@ class Ship {
 
     hit() {
         this.hits++
-        this.isSunk()
+        this.isSunk()   
         return this.hits
     }
 
