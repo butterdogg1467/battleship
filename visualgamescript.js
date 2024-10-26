@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let cordsdisplay = document.querySelector('.cordsdisplay')
 
+    let startCordsBox = document.querySelector('#startcords')
+    let endCordsBox = document.querySelector('#endcords')
+    let cordsSubmit = document.querySelector('.submitcords')
+    
     function createBoard(boardID) {
         let board = document.getElementById(boardID)
 
@@ -127,14 +131,25 @@ document.addEventListener('DOMContentLoaded', () => {
     createBoard('playerboard')
     createBoard('computerboard')
 
-    let shipCordsStart = [1,1]
-    let shipCordsEnd = [1,5]
 
-    player.board.placeShip(shipCordsStart, shipCordsEnd)
+    cordsSubmit.addEventListener('click', () => {
+        let shipCordsStart = startCordsBox.value   
+        let shipCordsEnd = endCordsBox.value
+
+        let shipCordsStartArr = JSON.parse("[" + shipCordsStart + "]")
+        let shipCordsEndArr = JSON.parse("[" + shipCordsEnd + "]")
+
+        player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+        shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
+
+        shipCordsStart = ''
+        shipCordsEnd = ''
+        shipCordsStartArr = []
+        shipCordsEndArr = []
+    })
 
     computer.board.placeShip([4, 5], [4, 7])
 
-    shipVisual(middleCords(shipCordsStart, shipCordsEnd), 'playerboard')
 
     shipVisual(middleCords([4, 5], [4, 7]), 'computerboard')
 
