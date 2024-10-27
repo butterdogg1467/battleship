@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let startCordsBox = document.querySelector('#startcords')
     let endCordsBox = document.querySelector('#endcords')
     let cordsSubmit = document.querySelector('.submitcords')
+    let startButton = document.querySelector('.startgame')
+
+    let errors = document.querySelector('.errors')
+    let errorDisplay = document.querySelector('.errordisplay')
+    let errorOne = document.querySelector('.errorone')
     
     function createBoard(boardID) {
         let board = document.getElementById(boardID)
@@ -68,6 +73,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function removeErorrClass() {
+        errorDisplay.classList.remove('errorpresent')
+        errorOne.textContent = ''
+    }
+
     function checkPlacement(start, end) {
         let range = middleCords(start, end)
         let hasShipFound = false
@@ -82,9 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 hasShipFound = true
             } 
         }
-
+        
         if (hasShipFound === true) {
-            alert("There is already a ship here!")
+            errorDisplay.classList.add('errorpresent')
+            errorOne.textContent = "ERROR: There is already a ship here!"
+            setTimeout(removeErorrClass, 5000)
             return true
         } else if (hasShipFound === false) {
             return false
@@ -181,9 +193,25 @@ document.addEventListener('DOMContentLoaded', () => {
         endCordsBox.value = ''
     })
 
-    // computer.board.placeShip([4, 5], [4, 7])
+    function placeComputerShips() {
+        console.log("Ships placed!")
+    }
 
-    // shipVisual(middleCords([4, 5], [4, 7]), 'computerboard')
+    function startGame() {
+        if (player.board.ships.length === 5) {
+            placeComputerShips()
+        } else if (player.board.ships.length > 5) {
+            errorOne.textContent = "You must place 5 ships! Currently you only have " + player.board.ships.length + " ships"
+        }
+    }
+
+    startButton.addEventListener('click', function() {
+        startGame()
+    })
+
+    computer.board.placeShip([4, 5], [4, 7])
+
+    shipVisual(middleCords([4, 5], [4, 7]), 'computerboard')
 
 
 

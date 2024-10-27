@@ -6,7 +6,7 @@ body {
     height: 100vh;
     width: 100vw;
     padding-bottom: 500px;
-    padding-top: 300px;
+    padding-top: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,7 +16,6 @@ body {
 .maintitle {
     font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 150px;
-    margin-top: -5px;
     -webkit-text-stroke: 2px black;
     background: linear-gradient(white, orange, #BB3212);
     -webkit-background-clip: text;
@@ -32,14 +31,14 @@ header {
 }
 
 #playerboard {
-    background-image: linear-gradient(#66FFFF, #4DD9D9, #33B3B3, #1A8C8C, #006666);
+    background-image: linear-gradient(#008294, #007594, #005d94, #005094, #004494);
     width: 650px;
     height: 650px;
     grid-column: 1/2;
 }
 
 #computerboard {
-    background-image: linear-gradient(#006666, #1A8C8C, #33B3B3, #4DD9D9, #66FFFF);
+    background-image: linear-gradient(#004494,#005094, #005d94, #007594, #008294);
     width: 650px;
     height: 650px;
     grid-column: 2/3;
@@ -195,7 +194,8 @@ header {
     height: 30px;
 }
 
-.submitcords {
+.submitcords,
+.startgame {
     appearance: none;
     background-color: white;
     border: none;
@@ -204,6 +204,27 @@ header {
     font-size: 20px;
 }
 
-.submitcords:hover {
+.submitcords:hover,
+.startgame:hover {
     background-color: orange;
+}
+
+.errordisplay {
+    border: 5px double orange;
+    width: 750px;
+    height: 300px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.errordisplay > h2 {
+    font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 30px;
+}
+
+.errorpresent {
+    background-color: orange;
+    color: black;
+    font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 30px;
 }

@@ -11,8 +11,14 @@
 <body>
     <header>
         <h1 class="maintitle">Battleship</h1>
-        <h2 class="cordsdisplay"></h2>
     </header>
+
+    <div class="errors">
+        <div class="errordisplay">
+            <h2>Errors will be displayed here</h2>
+            <h2 class="errorone"></h2>
+        </div>
+    </div>
 
     <div class="cordinputs">
         <label id="startcordslabel" for="startcords">Ship Start Points</label>
@@ -20,18 +26,23 @@
         <label id="endcordslabel" for="endcords">Ship End Points</label>
         <input id="endcords"type="text" title="Enter ship end points">
         <button class="submitcords">Add Ship</button>
+        <button class="startgame">Start game</button>
     </div>
+    
+    <h2 class="cordsdisplay"></h2>
 
     <div class="boardcontainer">
         <div class="playerstuff">
-            <h2 class="boardtitle" id="playerboardtitle">Player</h2>
+            <h2 class="boardtitle" id="playerboardtitle">Player Board</h2>
             <div id="playerboard" class="board"></div>
         </div>
         <div class="computerstuff">
-            <h2 class="boardtitle" id="computerboardtitle">Computer</h2>
+            <h2 class="boardtitle" id="computerboardtitle">Computer Board</h2>
             <div id="computerboard" class="board"></div>
         </div>
     </div>
+
+    
         
 </body>
 </html>
