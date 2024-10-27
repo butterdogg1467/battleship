@@ -15,6 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let errors = document.querySelector('.errors')
     let errorDisplay = document.querySelector('.errordisplay')
     let errorOne = document.querySelector('.errorone')
+
+    let carrierButton = document.querySelector('#carrier')
+    let battleshipButton = document.querySelector('#battleship')
+    let cruiserButton = document.querySelector('#cruiser')
+    let submarineButton = document.querySelector('#submarine')
+    let destroyerButton = document.querySelector('#destroyer')
+
+    let carrier = false
+    let battleship = false
+    let cruiser = false
+    let submarine = false
+    let destroyer = false
     
     function createBoard(boardID) {
         let board = document.getElementById(boardID)
@@ -173,12 +185,66 @@ document.addEventListener('DOMContentLoaded', () => {
     createBoard('playerboard')
     createBoard('computerboard')
 
+    carrierButton.addEventListener('click', () => {
+        carrier = true
+        battleship = false
+        cruiser = false
+        submarine = false
+        destroyer = false
+    })
+    
+    battleshipButton.addEventListener('click', () => {
+        carrier = false
+        battleship = true
+        cruiser = false
+        submarine = false
+        destroyer = false
+    })
+    
+    cruiserButton.addEventListener('click', () => {
+        carrier = false
+        battleship = false
+        cruiser = true
+        submarine = false
+        destroyer = false
+    })
+    
+    submarineButton.addEventListener('click', () => {
+        carrier = false
+        battleship = false
+        cruiser = false
+        submarine = true
+        destroyer = false
+    })
+    
+    destroyerButton.addEventListener('click', () => {
+        carrier = false
+        battleship = false
+        cruiser = false
+        submarine = false
+        destroyer = true
+    })
+
+    function getShipLength(start, end) {
+        let xLength = Math.abs(end[0] - start[0])
+        let yLength = Math.abs(end[1] - start[1])
+        if (xLength === 0) {
+            return yLength + 1
+        } else if (yLength === 0) {
+            return xLength + 1
+        } else {
+            return false
+        }
+    }
+
     cordsSubmit.addEventListener('click', () => {
         let shipCordsStart = startCordsBox.value   
         let shipCordsEnd = endCordsBox.value
 
         let shipCordsStartArr = JSON.parse("[" + shipCordsStart + "]")
         let shipCordsEndArr = JSON.parse("[" + shipCordsEnd + "]")
+
+        console.log(getShipLength(shipCordsStartArr, shipCordsEndArr))
 
         player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
         checkPlacement(shipCordsStartArr, shipCordsEndArr)
@@ -194,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     function placeComputerShips() {
-        console.log("Ships placed!")
+        let carrier = computer.board.placeShip([Math.floor(Math.random() * 9 - 1) + 1, Math.floor(Math.random() * 9 - 1) + 1], [Math.floor(Math.random() * 9 - 1) + 1, Math.floor(Math.random() * 9 - 1) + 1])
     }
 
     function startGame() {

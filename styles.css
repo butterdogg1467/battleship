@@ -31,14 +31,14 @@ header {
 }
 
 #playerboard {
-    background-image: linear-gradient(#008294, #007594, #005d94, #005094, #004494);
+    background-image: linear-gradient(#007594, #005d94, #005094, #004494);
     width: 650px;
     height: 650px;
     grid-column: 1/2;
 }
 
 #computerboard {
-    background-image: linear-gradient(#004494,#005094, #005d94, #007594, #008294);
+    background-image: linear-gradient(#004494,#005094, #005d94, #007594);
     width: 650px;
     height: 650px;
     grid-column: 2/3;
@@ -227,4 +227,22 @@ header {
     color: black;
     font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 30px;
+    border: 5px double black
+}
+
+.shiptypes > button {
+    appearance: none;
+    background-color: white;
+    border: none;
+    font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    height: 30px;
+    font-size: 20px;
+}
+
+.shiptypes > button:hover {
+    background-color: orange;
+}
+
+.hightlight {
+    background-color: darkslategrey;
 }
