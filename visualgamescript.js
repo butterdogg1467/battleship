@@ -198,10 +198,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startGame() {
+        errorOne.textContent = ''
         if (player.board.ships.length === 5) {
             placeComputerShips()
-        } else if (player.board.ships.length > 5) {
-            errorOne.textContent = "You must place 5 ships! Currently you only have " + player.board.ships.length + " ships"
+            errorOne.textContent = ''
+            cordsSubmit.disabled = true
+            startButton.disabled = true
+            startButton.textContent = "Game started!"
+        } else if (player.board.ships.length < 5) {
+            errorDisplay.classList.add('errorpresent')
+            errorOne.textContent = "ERROR: You must place 5 ships! Currently you only have " + player.board.ships.length + " ships"
+            console.log(player.board.ships)
+            setTimeout(removeErorrClass, 5000)
         }
     }
 
