@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkPlacement(start, end) {
         let range = middleCords(start, end)
+        let hasShipFound = false
         
         for(let i = 0; i < range.length; i++){
             let x = range[i][0]
@@ -78,31 +79,40 @@ document.addEventListener('DOMContentLoaded', () => {
             let cell = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
             
             if (cell.hasShip) {
-                console.log('true')
-                return true
-            } else if (!cell.hasShip) {
-                console.log('false')
-                return false
-            }
+                hasShipFound = true
+            } 
+        }
+
+        if (hasShipFound === true) {
+            alert("There is already a ship here!")
+            return true
+        } else if (hasShipFound === false) {
+            return false
         }
 
     }
 
     function shipVisual(cords, boardID) {
-        cords.forEach(cord => {
-            let x = cord[0]
-            let y = cord[1]
-
-            let cell = document.querySelector(`#${boardID} [data-x="${x}"][data-y="${y}"]`)
-            cell.hasShip = true
-            cell.checkPlacement(cords)
-
-            if (boardID === 'playerboard') {
-                cell.classList.add('ship')
-            } else {
-                return
-            }
-        })
+        let start = cords[0]
+        let end = cords[cords.length-1]
+        if (checkPlacement(start, end) === true) {
+            return 
+        } else {
+            cords.forEach(cord => {
+                let x = cord[0]
+                let y = cord[1]
+    
+                let cell = document.querySelector(`#${boardID} [data-x="${x}"][data-y="${y}"]`)
+                cell.hasShip = true
+    
+                if (boardID === 'playerboard') {
+                    cell.classList.add('ship')
+                } else {
+                    return
+                }
+            })
+        }
+        
     }
 
     function detectHit(cell) {
@@ -171,9 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
         endCordsBox.value = ''
     })
 
-    computer.board.placeShip([4, 5], [4, 7])
+    // computer.board.placeShip([4, 5], [4, 7])
 
-    shipVisual(middleCords([4, 5], [4, 7]), 'computerboard')
+    // shipVisual(middleCords([4, 5], [4, 7]), 'computerboard')
 
 
 
