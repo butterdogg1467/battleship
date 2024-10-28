@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let cruiser = false
     let submarine = false
     let destroyer = false
+
+    cordsdisplay.textContent = '(' + 0 + ', '+ 0 + ')'
     
     function createBoard(boardID) {
         let board = document.getElementById(boardID)
@@ -182,10 +184,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function resetShipButtonColors() {
+        carrierButton.style.backgroundColor = 'white'
+        battleshipButton.style.backgroundColor = 'white'
+        cruiserButton.style.backgroundColor = 'white'
+        submarineButton.style.backgroundColor = 'white'
+        destroyerButton.style.backgroundColor = 'white'
+    }
+
     createBoard('playerboard')
     createBoard('computerboard')
 
     carrierButton.addEventListener('click', () => {
+        resetShipButtonColors()
         carrier = true
         battleship = false
         cruiser = false
@@ -196,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     
     battleshipButton.addEventListener('click', () => {
+        resetShipButtonColors()
         carrier = false
         battleship = true
         cruiser = false
@@ -206,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     
     cruiserButton.addEventListener('click', () => {
+        resetShipButtonColors()
         carrier = false
         battleship = false
         cruiser = true
@@ -216,6 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     
     submarineButton.addEventListener('click', () => {
+        resetShipButtonColors()
         carrier = false
         battleship = false
         cruiser = false
@@ -226,6 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     
     destroyerButton.addEventListener('click', () => {
+        resetShipButtonColors()
         carrier = false
         battleship = false
         cruiser = false
