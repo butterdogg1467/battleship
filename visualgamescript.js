@@ -191,6 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cruiser = false
         submarine = false
         destroyer = false
+
+        carrierButton.style.backgroundColor = 'orange'
     })
     
     battleshipButton.addEventListener('click', () => {
@@ -199,6 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cruiser = false
         submarine = false
         destroyer = false
+
+        battleshipButton.style.backgroundColor = 'orange'
     })
     
     cruiserButton.addEventListener('click', () => {
@@ -207,6 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cruiser = true
         submarine = false
         destroyer = false
+
+        cruiserButton.style.backgroundColor = 'orange'
     })
     
     submarineButton.addEventListener('click', () => {
@@ -215,6 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cruiser = false
         submarine = true
         destroyer = false
+
+        submarineButton.style.backgroundColor = 'orange'
     })
     
     destroyerButton.addEventListener('click', () => {
@@ -223,6 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cruiser = false
         submarine = false
         destroyer = true
+
+        destroyerButton.style.backgroundColor = 'orange'
     })
 
     function getShipLength(start, end) {
@@ -238,6 +248,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     cordsSubmit.addEventListener('click', () => {
+        if (carrier === false && battleship === false && cruiser === false && submarine === false && destroyer === false) {
+            errorDisplay.classList.add('errorpresent')
+            errorOne.textContent = "You must select a ship type!"
+            setTimeout(removeErorrClass, 5000)
+            return
+        }
         let shipCordsStart = startCordsBox.value   
         let shipCordsEnd = endCordsBox.value
 
@@ -246,17 +262,125 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(getShipLength(shipCordsStartArr, shipCordsEndArr))
 
-        player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
-        checkPlacement(shipCordsStartArr, shipCordsEndArr)
-        shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
+        if (carrier === true) {
+            if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 5) {
+                errorDisplay.classList.add('errorpresent')
+                errorOne.textContent = "A carrier ship must be 5 cells long!"
+                setTimeout(removeErorrClass, 5000)
+                return
+            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 5 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
+                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
+                carrier = false
+                carrierButton.disabled = true
 
-        shipCordsStart = ''
-        shipCordsEnd = ''
-        shipCordsStartArr = []
-        shipCordsEndArr = []
+                shipCordsStart = ''
+                shipCordsEnd = ''
+                shipCordsStartArr = []
+                shipCordsEndArr = []
+        
+                startCordsBox.value = ''
+                endCordsBox.value = ''
 
-        startCordsBox.value = ''
-        endCordsBox.value = ''
+                return
+            }
+        } else if (battleship === true) {
+            if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 4) {
+                errorDisplay.classList.add('errorpresent')
+                errorOne.textContent = "A battleship ship must be 4 cells long!"
+                setTimeout(removeErorrClass, 5000)
+                return
+            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 4 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
+                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
+                battleship = false
+                battleshipButton.disabled = true
+
+                shipCordsStart = ''
+                shipCordsEnd = ''
+                shipCordsStartArr = []
+                shipCordsEndArr = []
+        
+                startCordsBox.value = ''
+                endCordsBox.value = ''
+
+                return
+            }
+        } else if (cruiser === true) {
+            if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 3) {
+                errorDisplay.classList.add('errorpresent')
+                errorOne.textContent = "A cruiser ship must be 3 cells long!"
+                setTimeout(removeErorrClass, 5000)
+                return
+            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 3 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
+                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
+                cruiser = false
+                cruiserButton.disabled = true 
+
+                shipCordsStart = ''
+                shipCordsEnd = ''
+                shipCordsStartArr = []
+                shipCordsEndArr = []
+        
+                startCordsBox.value = ''
+                endCordsBox.value = ''
+
+                return
+            }
+        } else if (submarine === true) {
+            if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 3) {
+                errorDisplay.classList.add('errorpresent')
+                errorOne.textContent = "A submarine ship must be 3 cells long!"
+                setTimeout(removeErorrClass, 5000)
+                return
+            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 3 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
+                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
+                submarine = false
+                submarineButton.disabled = true 
+
+                shipCordsStart = ''
+                shipCordsEnd = ''
+                shipCordsStartArr = []
+                shipCordsEndArr = []
+        
+                startCordsBox.value = ''
+                endCordsBox.value = ''
+
+                return
+            }
+        } else if (destroyer === true) {
+            if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 2) {
+                errorDisplay.classList.add('errorpresent')
+                errorOne.textContent = "A destroyer ship must be 2 cells long!"
+                setTimeout(removeErorrClass, 5000)
+                return
+            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 2 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
+                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
+                destroyer = false
+                destroyerButton.disabled = true 
+
+                shipCordsStart = ''
+                shipCordsEnd = ''
+                shipCordsStartArr = []
+                shipCordsEndArr = []
+        
+                startCordsBox.value = ''
+                endCordsBox.value = ''
+
+                return
+            }
+        }
+
+
+
     })
 
     function placeComputerShips() {
