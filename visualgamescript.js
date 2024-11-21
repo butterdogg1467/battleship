@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let endCordsBox = document.querySelector('#endcords')
     let cordsSubmit = document.querySelector('.submitcords')
     let startButton = document.querySelector('.startgame')
+    let isStarted = false
 
     let errors = document.querySelector('.errors')
     let errorDisplay = document.querySelector('.errordisplay')
@@ -50,9 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (boardID === 'computerboard') {
                     cell.addEventListener('click', () => {
-                        detectHit(cell)
+                        if (isStarted === true) {
+                            detectHit(cell)
+                        } 
                     })
+                    
                 }
+                
             }
         
         }
@@ -403,6 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startGame() {
+        isStarted = true
         errorOne.textContent = ''
         if (player.board.ships.length === 5) {
             placeComputerShips()

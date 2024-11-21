@@ -170,7 +170,6 @@ header {
     background-color: gray;
 }
 
-
 .hit::after {
     content: 'X';
     color: darkred;
@@ -227,7 +226,6 @@ header {
     color: black;
     font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 30px;
-    border: 5px double black
 }
 
 .shiptypes > button {
@@ -245,4 +243,8 @@ header {
 
 .hightlight {
     background-color: darkslategrey;
+}
+
+button:hover {
+    cursor: pointer;
 }
