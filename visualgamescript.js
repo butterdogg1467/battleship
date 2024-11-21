@@ -404,8 +404,56 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     function placeComputerShips() {
-        let carrier = computer.board.placeShip([Math.floor(Math.random() * 9 - 1) + 1, Math.floor(Math.random() * 9 - 1) + 1], [Math.floor(Math.random() * 9 - 1) + 1, Math.floor(Math.random() * 9 - 1) + 1])
+        const ships = [
+            { name: "carrier", length: 5 },
+            { name: "battleship", length: 4 },
+            { name: "cruiser", length: 3 },
+            { name: "submarine", length: 3 },
+            { name: "destroyer", length: 2 },
+          ]
+
+            let startX
+            let startY
+            let endX
+            let endY
+
+            let startCords
+            let endCords
+
+            let vertical
+            let horizontal
+
+            let horiVer = Math.random() 
+            let horiVerRounded = horiVer.toFixed(1)
+
+            if(horiVerRounded < 0.5) {
+                horizontal = false
+                vertical = true
+            } else {
+                horizontal = true
+                vertical = false
+            }
+
+            if (vertical === true) {
+                startX = Math.floor(Math.random() * (9 - 0) + 0)
+                startY = Math.floor(Math.random() * (9 - 0) + 0)
+                endX = startX
+                endY = Math.floor(Math.random() * (9 - 0) + 0)
+                startCords = '(' + startX + ', ' + startY + ')'
+                endCords = '(' + endX + ', ' + endY + ')'
+                console.log(startCords, endCords, 'vert')
+            } else if (horizontal === true) {
+                startX = Math.floor(Math.random() * (9 - 0) + 0)
+                startY = Math.floor(Math.random() * (9 - 0) + 0)
+                endX = Math.floor(Math.random() * (9 - 0) + 0)
+                endY = startY
+                startCords = '(' + startX + ', ' + startY + ')'
+                endCords = '(' + endX + ', ' + endY + ')'
+                console.log(startCords, endCords, 'hori')
+            }
     }
+
+    placeComputerShips()
 
     function startGame() {
         isStarted = true
