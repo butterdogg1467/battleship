@@ -463,9 +463,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     startCords = [startX, startY]
                     endCords = [endX, endY]
 
-                    console.log(middleCords(startCords, endCords))
+                    let fullShipCords = middleCords(startCords, endCords)
 
-                    console.log(startCords, endCords, 'vert', shipName)
+                    occupiedCords.push([fullShipCords])
+
+                    placedShips.push([shipName, startCords, endCords, 'vert'])
+
+                    console.log({placedShips})
+                    console.log({occupiedCords})
 
                 } else if (horizontal === true) {
                     startX = Math.floor(Math.random() * (9 - 0) + 0)
@@ -484,9 +489,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     startCords = [startX, startY]
                     endCords = [endX, endY]
                     
-                    console.log(middleCords(startCords, endCords))
+                    let fullShipCords = middleCords(startCords, endCords)
 
-                    console.log(startCords, endCords, 'hori', shipName)
+                    occupiedCords.push([fullShipCords])
+
+                    placedShips.push([shipName, startCords, endCords, 'hori'])
+
+                    console.log({placedShips})
+                    console.log({occupiedCords})
 
                 }
             }
