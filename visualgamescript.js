@@ -423,34 +423,75 @@ document.addEventListener('DOMContentLoaded', () => {
             let vertical
             let horizontal
 
-            let horiVer = Math.random() 
-            let horiVerRounded = horiVer.toFixed(1)
+            let ship
+            let shipLength
+            let shipName
 
-            if(horiVerRounded < 0.5) {
-                horizontal = false
-                vertical = true
-            } else {
-                horizontal = true
-                vertical = false
+            let occupiedCords = []
+            let placedShips = []
+            
+            for (let i = 0; i < ships.length; i++) {
+                let horiVer = Math.random() 
+                let horiVerRounded = horiVer.toFixed(1)
+
+                if (horiVerRounded < 0.5) {
+                    horizontal = false
+                    vertical = true
+                } else {
+                    horizontal = true
+                    vertical = false
+                }
+
+                ship = ships[i];
+                shipLength = ship.length;
+                shipName = ship.name;
+
+                if (vertical === true) {
+                    startX = Math.floor(Math.random() * (9 - 0) + 0)
+                    startY = Math.floor(Math.random() * (9 - 0) + 0)
+                    endX = startX
+                    endY = startY + shipLength - 1
+
+                    if (endY > 9) {
+                        while(endY > 9) {
+                            startY = Math.floor(Math.random() * (9 - 0) + 0)
+                            endY = startY + shipLength - 1
+                            console.log('regen')
+                        }
+                    }
+
+                    startCords = [startX, startY]
+                    endCords = [endX, endY]
+
+                    console.log(middleCords(startCords, endCords))
+
+                    console.log(startCords, endCords, 'vert', shipName)
+
+                } else if (horizontal === true) {
+                    startX = Math.floor(Math.random() * (9 - 0) + 0)
+                    startY = Math.floor(Math.random() * (9 - 0) + 0)
+                    endX = startX + shipLength - 1
+                    endY = startY
+
+                    if (endX > 9) {
+                        while(endX > 9) {
+                            startX = Math.floor(Math.random() * (9 - 0) + 0)
+                            endX = startX + shipLength - 1
+                            console.log('regen')
+                        }
+                    }
+
+                    startCords = [startX, startY]
+                    endCords = [endX, endY]
+                    
+                    console.log(middleCords(startCords, endCords))
+
+                    console.log(startCords, endCords, 'hori', shipName)
+
+                }
             }
 
-            if (vertical === true) {
-                startX = Math.floor(Math.random() * (9 - 0) + 0)
-                startY = Math.floor(Math.random() * (9 - 0) + 0)
-                endX = startX
-                endY = Math.floor(Math.random() * (9 - 0) + 0)
-                startCords = '(' + startX + ', ' + startY + ')'
-                endCords = '(' + endX + ', ' + endY + ')'
-                console.log(startCords, endCords, 'vert')
-            } else if (horizontal === true) {
-                startX = Math.floor(Math.random() * (9 - 0) + 0)
-                startY = Math.floor(Math.random() * (9 - 0) + 0)
-                endX = Math.floor(Math.random() * (9 - 0) + 0)
-                endY = startY
-                startCords = '(' + startX + ', ' + startY + ')'
-                endCords = '(' + endX + ', ' + endY + ')'
-                console.log(startCords, endCords, 'hori')
-            }
+            
     }
 
     placeComputerShips()
