@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let endCordsBox = document.querySelector('#endcords')
     let cordsSubmit = document.querySelector('.submitcords')
     let startButton = document.querySelector('.startgame')
+    let randomPlaceButton = document.querySelector('.randomplacebutton')
     let isStarted = false
 
     let errors = document.querySelector('.errors')
@@ -144,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     cell.classList.add('ship')
                 } else {
                     cell.classList.add('ship')
+
                 }
             })
         }
@@ -431,9 +433,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return bufferZoneSetToArray
     }
 
-    getBufferZone(middleCords([1, 1], [1, 5]))
+    function resetBoard(boardID) {
+        let cells = document.querySelectorAll(`#${boardID} .cell`)
+        cells.forEach(cell => {
+            cell.classList.remove('ship')
+            cell.hasShip = false
+        })
+    }
 
-    function placeComputerShips() {
+    function placeComputerShips(boardID) {
+        resetBoard(boardID)
+        player.board.ships = []
         const ships = [
             { name: "carrier", length: 5 },
             { name: "battleship", length: 4 },
@@ -478,14 +488,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                         startCords = [startX, startY]
                         endCords = [endX, endY]
-                        isInvalidPlacement = checkPlacement(startCords, endCords, 'computerboard')
+                        isInvalidPlacement = checkPlacement(startCords, endCords, boardID)
                     } while (isInvalidPlacement)
 
                     let fullShipCords = middleCords(startCords, endCords)
-                    shipVisual(fullShipCords, 'computerboard')
+                    shipVisual(fullShipCords, boardID)
                     occupiedCords.push(...fullShipCords)
                     occupiedCords.push(...getBufferZone(fullShipCords))
                     placedShips.push([shipName, startCords, endCords, 'vert'])
+                    player.board.placeShip(startCords, endCords)
 
 
                 } else if (horizontal === true) {
@@ -502,14 +513,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                         startCords = [startX, startY]
                         endCords = [endX, endY]
-                        isInvalidPlacement = checkPlacement(startCords, endCords, 'computerboard')
+                        isInvalidPlacement = checkPlacement(startCords, endCords, boardID)
                     } while (isInvalidPlacement)
                     
                     let fullShipCords = middleCords(startCords, endCords)
-                    shipVisual(fullShipCords, 'computerboard')
+                    shipVisual(fullShipCords, boardID)
                     occupiedCords.push(...fullShipCords)
                     occupiedCords.push(...getBufferZone(fullShipCords))
                     placedShips.push([shipName, startCords, endCords, 'hori'])
+                    player.board.placeShip(startCords, endCords)
 
 
                 }
@@ -518,7 +530,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
     }
 
-    placeComputerShips()
+
+    randomPlaceButton.addEventListener('click', () => {
+        placeComputerShips('playerboard')
+        console.log(player.board.ships.length)
+    })
 
     function startGame() {
         isStarted = true
