@@ -540,10 +540,16 @@ document.addEventListener('DOMContentLoaded', () => {
         isStarted = true
         errorOne.textContent = ''
         if (player.board.ships.length === 5) {
-            placeComputerShips()
+            placeComputerShips('computerboard')
             errorOne.textContent = ''
             cordsSubmit.disabled = true
             startButton.disabled = true
+            randomPlaceButton.disabled = true
+            carrierButton.disabled = true
+            battleshipButton.disabled = true
+            cruiserButton.disabled = true
+            submarineButton.disabled = true
+            destroyerButton.disabled = true
             startButton.textContent = "Game started!"
         } else if (player.board.ships.length < 5) {
             errorDisplay.classList.add('errorpresent')
