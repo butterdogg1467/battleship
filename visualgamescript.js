@@ -403,6 +403,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })
 
+    function getBufferZone(cords) {
+        
+    }
+
     function placeComputerShips() {
         const ships = [
             { name: "carrier", length: 5 },
@@ -412,24 +416,12 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: "destroyer", length: 2 },
           ]
 
-            let startX
-            let startY
-            let endX
-            let endY
-
-            let startCords
-            let endCords
-
-            let vertical
-            let horizontal
-
-            let ship
-            let shipLength
-            let shipName
+            let startX, startY, endX, endY, startCords, endCords, vertical, horizontal, ship, shipLength, shipName
 
             let occupiedCords = []
             let placedShips = []
-            
+            let isInvalidPlacement
+
             for (let i = 0; i < ships.length; i++) {
                 let horiVer = Math.random() 
                 let horiVerRounded = horiVer.toFixed(1)
@@ -447,56 +439,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 shipName = ship.name;
 
                 if (vertical === true) {
-                    startX = Math.floor(Math.random() * (9 - 0) + 0)
-                    startY = Math.floor(Math.random() * (9 - 0) + 0)
-                    endX = startX
-                    endY = startY + shipLength - 1
-
-                    if (endY > 9) {
+                    do {
+                        startX = Math.floor(Math.random() * (9 - 0) + 0)
+                        startY = Math.floor(Math.random() * (9 - 0) + 0)
+                        endX = startX
+                        endY = startY + shipLength - 1
+                
                         while(endY > 9) {
                             startY = Math.floor(Math.random() * (9 - 0) + 0)
                             endY = startY + shipLength - 1
-                            console.log('regen')
                         }
-                    }
-
-                    startCords = [startX, startY]
-                    endCords = [endX, endY]
+                
+                        startCords = [startX, startY]
+                        endCords = [endX, endY]
+                        isInvalidPlacement = checkPlacement(startCords, endCords)
+                    } while (isInvalidPlacement)
 
                     let fullShipCords = middleCords(startCords, endCords)
-
-                    occupiedCords.push([fullShipCords])
-
+                    shipVisual(fullShipCords, 'playerboard')
+                    occupiedCords.push(...fullShipCords)
                     placedShips.push([shipName, startCords, endCords, 'vert'])
 
-                    console.log({placedShips})
-                    console.log({occupiedCords})
 
                 } else if (horizontal === true) {
-                    startX = Math.floor(Math.random() * (9 - 0) + 0)
-                    startY = Math.floor(Math.random() * (9 - 0) + 0)
-                    endX = startX + shipLength - 1
-                    endY = startY
-
-                    if (endX > 9) {
+                    do {
+                        startX = Math.floor(Math.random() * (9 - 0) + 0)
+                        startY = Math.floor(Math.random() * (9 - 0) + 0)
+                        endX = startX + shipLength - 1
+                        endY = startY
+                
                         while(endX > 9) {
                             startX = Math.floor(Math.random() * (9 - 0) + 0)
                             endX = startX + shipLength - 1
-                            console.log('regen')
                         }
-                    }
-
-                    startCords = [startX, startY]
-                    endCords = [endX, endY]
+                
+                        startCords = [startX, startY]
+                        endCords = [endX, endY]
+                        isInvalidPlacement = checkPlacement(startCords, endCords)
+                    } while (isInvalidPlacement)
                     
                     let fullShipCords = middleCords(startCords, endCords)
-
-                    occupiedCords.push([fullShipCords])
-
+                    shipVisual(fullShipCords, 'playerboard')
+                    occupiedCords.push(...fullShipCords)
                     placedShips.push([shipName, startCords, endCords, 'hori'])
 
-                    console.log({placedShips})
-                    console.log({occupiedCords})
 
                 }
             }
