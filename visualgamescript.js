@@ -143,9 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 if (boardID === 'playerboard') {
                     cell.classList.add('ship')
-                } else {
-                    cell.classList.add('ship')
-
                 }
             })
         }
@@ -496,7 +493,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     occupiedCords.push(...fullShipCords)
                     occupiedCords.push(...getBufferZone(fullShipCords))
                     placedShips.push([shipName, startCords, endCords, 'vert'])
-                    player.board.placeShip(startCords, endCords)
+                    if (boardID === 'playerboard') {
+                        player.board.placeShip(startCords, endCords)
+                    } else if (boardID === 'computerboard') {
+                        computer.board.placeShip(startCords, endCords)
+                    }
 
 
                 } else if (horizontal === true) {
@@ -521,8 +522,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     occupiedCords.push(...fullShipCords)
                     occupiedCords.push(...getBufferZone(fullShipCords))
                     placedShips.push([shipName, startCords, endCords, 'hori'])
-                    player.board.placeShip(startCords, endCords)
-
+                    if (boardID === 'playerboard') {
+                        player.board.placeShip(startCords, endCords)
+                    } else if (boardID === 'computerboard') {
+                        computer.board.placeShip(startCords, endCords)
+                    }
 
                 }
             }
@@ -541,6 +545,7 @@ document.addEventListener('DOMContentLoaded', () => {
         errorOne.textContent = ''
         if (player.board.ships.length === 5) {
             placeComputerShips('computerboard')
+            console.log(computer.board.ships)
             errorOne.textContent = ''
             cordsSubmit.disabled = true
             startButton.disabled = true
