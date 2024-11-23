@@ -97,25 +97,29 @@ document.addEventListener('DOMContentLoaded', () => {
         errorOne.textContent = ''
     }
 
-    function checkPlacement(start, end) {
+    function checkPlacement(start, end, boardID) {
         let range = middleCords(start, end)
+        let bufferCords = getBufferZone(range)
+        let allCords = [...range, ...bufferCords]
         let hasShipFound = false
         
-        for(let i = 0; i < range.length; i++){
-            let x = range[i][0]
-            let y = range[i][1]
+        for(let i = 0; i < allCords.length; i++){
+            let x = allCords[i][0]
+            let y = allCords[i][1]
 
-            let cell = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
+            let cell = document.querySelector(`#${boardID} [data-x="${x}"][data-y="${y}"]`)
             
-            if (cell.hasShip) {
+            if (cell && cell.hasShip) {
                 hasShipFound = true
             } 
         }
         
         if (hasShipFound === true) {
-            errorDisplay.classList.add('errorpresent')
-            errorOne.textContent = "ERROR: There is already a ship here!"
-            setTimeout(removeErorrClass, 5000)
+            if (boardID === 'playerboard') {
+                errorDisplay.classList.add('errorpresent')
+                errorOne.textContent = "ERROR: There is already a ship here!"
+                setTimeout(removeErorrClass, 5000)
+            }
             return true
         } else if (hasShipFound === false) {
             return false
@@ -126,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function shipVisual(cords, boardID) {
         let start = cords[0]
         let end = cords[cords.length-1]
-        if (checkPlacement(start, end) === true) {
+        if (checkPlacement(start, end, boardID) === true) {
             return 
         } else {
             cords.forEach(cord => {
@@ -139,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (boardID === 'playerboard') {
                     cell.classList.add('ship')
                 } else {
-                    return
+                    cell.classList.add('ship')
                 }
             })
         }
@@ -403,9 +407,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })
 
-    function getBufferZone(cords) {
-        
+    function checkBufferCords(cords) {
+        if (cords[0] <= 9 && cords[0] >= 0 && cords[1] <= 9 && cords[1] >= 0) {
+            return cords
+        }
     }
+
+    function getBufferZone(cords) {
+        let bufferZone = []
+        let bufferZoneFiltered, bufferZoneSet, bufferZoneSetToArray
+        cords.forEach(cord => {
+            for(let i = -1; i <= 1; i++) {
+                for(let j = -1; j <= 1; j++) {
+                    bufferZone.push([cord[0] + i, cord[1] + j])
+                }
+            }
+        })
+        bufferZoneFiltered = bufferZone.map(coord => coord.toString())
+        bufferZoneSet = new Set(bufferZoneFiltered)
+        bufferZoneSetToArray = Array.from(bufferZoneSet).map(coord => 
+        coord.split(',').map(Number))
+
+        return bufferZoneSetToArray
+    }
+
+    getBufferZone(middleCords([1, 1], [1, 5]))
 
     function placeComputerShips() {
         const ships = [
@@ -452,12 +478,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                         startCords = [startX, startY]
                         endCords = [endX, endY]
-                        isInvalidPlacement = checkPlacement(startCords, endCords)
+                        isInvalidPlacement = checkPlacement(startCords, endCords, 'computerboard')
                     } while (isInvalidPlacement)
 
                     let fullShipCords = middleCords(startCords, endCords)
-                    shipVisual(fullShipCords, 'playerboard')
+                    shipVisual(fullShipCords, 'computerboard')
                     occupiedCords.push(...fullShipCords)
+                    occupiedCords.push(...getBufferZone(fullShipCords))
                     placedShips.push([shipName, startCords, endCords, 'vert'])
 
 
@@ -475,12 +502,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                         startCords = [startX, startY]
                         endCords = [endX, endY]
-                        isInvalidPlacement = checkPlacement(startCords, endCords)
+                        isInvalidPlacement = checkPlacement(startCords, endCords, 'computerboard')
                     } while (isInvalidPlacement)
                     
                     let fullShipCords = middleCords(startCords, endCords)
-                    shipVisual(fullShipCords, 'playerboard')
+                    shipVisual(fullShipCords, 'computerboard')
                     occupiedCords.push(...fullShipCords)
+                    occupiedCords.push(...getBufferZone(fullShipCords))
                     placedShips.push([shipName, startCords, endCords, 'hori'])
 
 
@@ -513,9 +541,6 @@ document.addEventListener('DOMContentLoaded', () => {
         startGame()
     })
 
-    computer.board.placeShip([4, 5], [4, 7])
-
-    shipVisual(middleCords([4, 5], [4, 7]), 'computerboard')
 
 
 
