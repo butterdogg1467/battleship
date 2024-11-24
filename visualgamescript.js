@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let cruiser = false
     let submarine = false
     let destroyer = false
+    
+    let cellsStruck = []
 
     cordsdisplay.textContent = '(' + 0 + ', '+ 0 + ')'
     
@@ -148,6 +150,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
     }
+    
+    function computerHit(boardID) {
+        let hits = []
+        let x = Math.floor(Math.random() * (9 - 0) + 0)
+        let y = Math.floor(Math.random() * (9 - 0) + 0)
+
+        while (cellsStruck.some(cord => cord[0] === x && cord[1] === y)) {
+            x = Math.floor(Math.random() * (9 - 0) + 0)
+            y = Math.floor(Math.random() * (9 - 0) + 0)
+        }
+
+        let cell = document.querySelector(`#${boardID} [data-x="${x}"][data-y="${y}"]`)
+
+        if (player.board.receiveAttack([x, y])) {
+            hits.push(cell)
+            cellsStruck.push([x, y])
+            cell.classList.add('hit')
+            cell.isHit = true
+            console.log(player.board.ships)
+        } else {
+            cell.classList.add('missed')
+            cellsStruck.push([x, y])
+            console.log([x, y])
+            cell.isHit = true
+        }
+    }
 
     function detectHit(cell) {
         if (cell.isHit === true) {
@@ -158,38 +186,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let y = parseInt(cell.dataset.y)
         let coords = [x, y]
         if (computer.board.receiveAttack([x, y])) {
-            console.log('Hit!!')
             hits.push(cell)
             cell.classList.add('hit')
             cell.isHit = true
+
         } else {
             cell.classList.add('missed')
-            console.log('Missed!!')
             cell.isHit = true
         }
 
-        setTimeout(computerHit, 500)
-    }
-
-    function computerHit() {
-        let hits = []
-        let x = Math.floor(Math.random() * (9 - 0) + 0)
-        let y = Math.floor(Math.random() * (9 - 0) + 0)
-        let cell = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
-        if (cell.isHit === true) {
-            return
-        }
-        if (player.board.receiveAttack([x, y])) {
-            console.log('Computer Hit!!')
-            hits.push(cell)
-            cell.classList.add('hit')
-            console.log([x, y])
-            cell.isHit = true
-        } else {
-            cell.classList.add('missed')
-            console.log([x, y])
-            cell.isHit = true
-        }
+        computerHit('playerboard')
     }
 
     function resetShipButtonColors() {
@@ -440,7 +446,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function placeComputerShips(boardID) {
         resetBoard(boardID)
-        player.board.ships = []
         const ships = [
             { name: "carrier", length: 5 },
             { name: "battleship", length: 4 },

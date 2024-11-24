@@ -46,6 +46,7 @@ class Gameboard {
                     this.ships.splice(i,1)
                     if (this.ships.length <= 0) {
                         this.shipsSunk = true
+                        console.log('sunk')
                         return true
                     }   
                 }
