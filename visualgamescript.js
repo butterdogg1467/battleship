@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let startButton = document.querySelector('.startgame')
     let randomPlaceButton = document.querySelector('.randomplacebutton')
     let isStarted = false
+    let shipTypesButtons = document.querySelector('.shiptypes')
+    let dragDropToggle = document.querySelector('.dragdroptoggle')
+    let cordInputs = document.querySelector('.cordinputs')
 
     let errors = document.querySelector('.errors')
     let errorDisplay = document.querySelector('.errordisplay')
@@ -69,6 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let cellsStruck = []
 
     cordsdisplay.textContent = '(' + 0 + ', '+ 0 + ')'
+
+    function toggleDragDrop() {
+        cordInputs.removeChild(shipTypesButtons)
+    }
+    
+    dragDropToggle.addEventListener('click', () => {
+        toggleDragDrop()
+    })
     
     function createBoard(boardID) {
         let board = document.getElementById(boardID)
@@ -641,6 +652,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     randomPlaceButton.addEventListener('click', () => {
+        player.board.ships = []
         placeComputerShips('playerboard')
         console.log(player.board.ships.length)
     })

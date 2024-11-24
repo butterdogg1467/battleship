@@ -216,18 +216,21 @@ header {
 
 .submitcords,
 .startgame,
-.randomplacebutton {
+.randomplacebutton,
+.dragdroptoggle {
     appearance: none;
     background-color: white;
     border: none;
     font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     height: 30px;
     font-size: 20px;
+    width: 443.61px;
 }
 
 .submitcords:hover,
 .startgame:hover,
-.randomplacebutton:hover {
+.randomplacebutton:hover,
+.dragdroptoggle:hover {
     background-color: orange;
 }
 
