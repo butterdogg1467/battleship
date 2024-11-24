@@ -70,11 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const computerDestroyerSunk = document.querySelector('#computerdestroyerlistsunk')
     
     let cellsStruck = []
+    let dragDropOn = false
+    let dragDropShipContainer = document.createElement('div')
 
     cordsdisplay.textContent = '(' + 0 + ', '+ 0 + ')'
 
     function toggleDragDrop() {
-        cordInputs.removeChild(shipTypesButtons)
+        if (dragDropOn === true) {
+            cordInputs.removeChild(dragDropShipContainer)
+            cordInputs.appendChild(shipTypesButtons)
+            dragDropOn = false
+        } else {
+            dragDropOn = true
+            cordInputs.removeChild(shipTypesButtons)
+            dragDropShipContainer.classList.add('dragdropshipcontainer')
+            cordInputs.appendChild(dragDropShipContainer)
+
+        }
     }
     
     dragDropToggle.addEventListener('click', () => {
