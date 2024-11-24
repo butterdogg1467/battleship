@@ -103,6 +103,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    function gameEnd(boardID) {
+        let winStatus = document.createElement('div')
+        let winStatush1 = document.createElement('h1')
+        let boardCover = document.createElement('div')
+        let playAgainButton = document.createElement('button')
+        boardCover.classList.add('boardcover')
+        playAgainButton.classList.add('playagainbutton')
+        playAgainButton.textContent = "Play Again"
+        winStatus.classList.add('winstatus')
+        winStatus.appendChild(winStatush1)
+        boardCover.appendChild(playAgainButton)
+        let playerBoard = document.getElementById('playerboard')
+        let computerBoard = document.getElementById('computerboard')
+        playAgainButton.addEventListener('click', () => {
+            location.reload()
+        })
+        if (boardID === 'playerboard') {
+            playerBoard.appendChild(winStatus)
+            computerBoard.appendChild(boardCover)
+            winStatush1.textContent = "Player Wins!"
+        } else if (boardID === 'computerboard') {
+            computerBoard.appendChild(winStatus)
+            playerBoard.appendChild(boardCover)
+            winStatush1.textContent = "Computer Wins!"
+        }
+    }
+
+
     function middleCords(start, end) {
         let yCords = []
         let xCords = []
@@ -210,9 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.classList.add('hit')
             cell.isHit = true
             updatePlayerList(hitShip)
-            // console.log(player.board.ships.length)
             if(player.board.ships.length === 0) {
-                console.log('Computer Wins!!')
+                gameEnd('computerboard')
             }
         } else {
             cell.classList.add('missed')
@@ -243,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateComputerList(hitShip)
             console.log(computer.board.ships.length)
             if (computer.board.ships.length === 0) {
-                console.log('Player Wins!!')
+                gameEnd('playerboard')
             }
         } else {
             cell.classList.add('missed')
@@ -812,9 +839,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
-
-
 
 })
 

@@ -329,6 +329,47 @@ th {
     background-color: rgb(128, 0, 0);
 }
 
+.winstatus {
+    width: 650px;
+    height: 650px;
+    position: absolute;
+    font-size: 75px;
+    text-shadow: gray 5px 5px;
+    letter-spacing: 10px;
+    background: linear-gradient(135deg, #303030 0%, #505050 50%, #303030 100%);
+}
+
+.boardcover {
+    width: 650px;
+    height: 650px;
+    position: absolute;
+    z-index: 999;
+    background-image: darkgray;
+    background: linear-gradient(135deg, #303030 0%, #505050 50%, #303030 100%);
+    display: grid;
+}
+
+.playagainbutton {
+    appearance: none;
+    border: none;
+    font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    width: 400px;
+    height: 200px;
+    justify-self: center;
+    align-self: center;
+    font-size: 75px;
+    text-shadow: gray 5px 5px;
+    border: 2px solid black;
+    background: linear-gradient(135deg, #303030 0%, #505050 50%, #303030 100%);
+    letter-spacing: 5px;
+    transition: width 0.2s ease-in-out;
+}
+.playagainbutton:hover {
+    width: 450px;
+}
+
+
+
 
 
 
