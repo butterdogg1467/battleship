@@ -289,16 +289,19 @@ document.addEventListener('DOMContentLoaded', () => {
         let shipCordsStartArr = JSON.parse("[" + shipCordsStart + "]")
         let shipCordsEndArr = JSON.parse("[" + shipCordsEnd + "]")
 
-        console.log(getShipLength(shipCordsStartArr, shipCordsEndArr))
-
         if (carrier === true) {
             if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 5) {
                 errorDisplay.classList.add('errorpresent')
                 errorOne.textContent = "A carrier ship must be 5 cells long!"
                 setTimeout(removeErorrClass, 5000)
                 return
-            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 5 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
-                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            } 
+                
+            if (checkPlacement(shipCordsStartArr, shipCordsEndArr, "playerboard") === true) {
+                return
+            }
+
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 carrier = false
@@ -313,15 +316,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 endCordsBox.value = ''
 
                 return
-            }
         } else if (battleship === true) {
             if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 4) {
                 errorDisplay.classList.add('errorpresent')
                 errorOne.textContent = "A battleship ship must be 4 cells long!"
                 setTimeout(removeErorrClass, 5000)
                 return
-            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 4 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
-                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            } 
+                
+            if (checkPlacement(shipCordsStartArr, shipCordsEndArr, "playerboard") === true) {
+                return
+            }
+
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 battleship = false
@@ -336,19 +343,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 endCordsBox.value = ''
 
                 return
-            }
         } else if (cruiser === true) {
             if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 3) {
                 errorDisplay.classList.add('errorpresent')
                 errorOne.textContent = "A cruiser ship must be 3 cells long!"
                 setTimeout(removeErorrClass, 5000)
                 return
-            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 3 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
-                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            } 
+                
+            if (checkPlacement(shipCordsStartArr, shipCordsEndArr, "playerboard") === true) {
+                return
+            }
+
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 cruiser = false
-                cruiserButton.disabled = true 
+                cruiserButton.disabled = true
 
                 shipCordsStart = ''
                 shipCordsEnd = ''
@@ -359,19 +370,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 endCordsBox.value = ''
 
                 return
-            }
         } else if (submarine === true) {
             if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 3) {
                 errorDisplay.classList.add('errorpresent')
-                errorOne.textContent = "A submarine ship must be 3 cells long!"
+                errorOne.textContent = "A submarine must be 3 cells long!"
                 setTimeout(removeErorrClass, 5000)
                 return
-            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 3 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
-                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            } 
+                
+            if (checkPlacement(shipCordsStartArr, shipCordsEndArr, "playerboard") === true) {
+                return
+            }
+
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 submarine = false
-                submarineButton.disabled = true 
+                submarineButton.disabled = true
 
                 shipCordsStart = ''
                 shipCordsEnd = ''
@@ -382,19 +397,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 endCordsBox.value = ''
 
                 return
-            }
         } else if (destroyer === true) {
             if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 2) {
                 errorDisplay.classList.add('errorpresent')
                 errorOne.textContent = "A destroyer ship must be 2 cells long!"
                 setTimeout(removeErorrClass, 5000)
                 return
-            } else if (getShipLength(shipCordsStartArr, shipCordsEndArr) === 2 && checkPlacement(shipCordsStartArr, shipCordsEndArr) === false) {
-                player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            } 
+                
+            if (checkPlacement(shipCordsStartArr, shipCordsEndArr, "playerboard") === true) {
+                return
+            }
+
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 destroyer = false
-                destroyerButton.disabled = true 
+                destroyerButton.disabled = true
 
                 shipCordsStart = ''
                 shipCordsEnd = ''
@@ -405,7 +424,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 endCordsBox.value = ''
 
                 return
-            }
         }
 
 

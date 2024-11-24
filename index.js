@@ -31,7 +31,8 @@ class Gameboard {
     ships = []
     missed = []
     shipsSunk = false
-    placeShip([x,y], [x2,y2]) {
+    placeShip([x,y], [x2,y2], type) {
+        this.type = type
         this.ship = new Ship([x,y], [x2, y2])
         this.ships.push(this.ship)
     }
