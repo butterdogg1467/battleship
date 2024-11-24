@@ -185,6 +185,17 @@ header {
     color: darkred;
 }
 
+.hit {  
+    background: radial-gradient(circle, #B30000, #B35900);
+    box-shadow: 
+        inset 0 0 10px #B30000,
+        0 0 10px #B35900
+}
+
+.sunk {
+    background: gray;
+}
+
 .missed::after {
     content: 'X';
     color: white;
@@ -288,3 +299,38 @@ th {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
+
+.listhits,
+.listsunk {
+    background-color: green;
+}
+
+.onehit {
+    background-color: #7C8A00;
+}
+
+.twohit {
+    background-color: #B8B800;
+}
+
+.threehit {
+    background-color: #B35900;
+}
+
+.fourhit {
+    background-color: #B30000;
+}
+
+.fivehit {
+    background-color: #800000;
+}
+
+.listshipsunk {
+    background-color: rgb(128, 0, 0);
+}
+
+
+
+
+
+

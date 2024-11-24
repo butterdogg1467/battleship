@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const submarineTitle = document.querySelector('.submarinelisttitle')
     const destroyerTitle = document.querySelector('.destroyerlisttitle')
 
-    const carrierHits = document.querySelector('#carrierlisthits')
-    const battleshipHits = document.querySelector('#battleshiplisthits')
-    const cruiserHits = document.querySelector('#cruiserlisthits')
-    const submarineHits = document.querySelector('#submarinelisthits')
-    const destroyerHits = document.querySelector('#destroyerlisthits')
+    let carrierHits = document.querySelector('#carrierlisthits')
+    let battleshipHits = document.querySelector('#battleshiplisthits')
+    let cruiserHits = document.querySelector('#cruiserlisthits')
+    let submarineHits = document.querySelector('#submarinelisthits')
+    let destroyerHits = document.querySelector('#destroyerlisthits')
 
     const carrierSunk = document.querySelector('#carrierlistsunk')
     const battleshipSunk = document.querySelector('#battleshiplistsunk')
@@ -199,12 +199,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let cell = document.querySelector(`#${boardID} [data-x="${x}"][data-y="${y}"]`)
 
+        let hitShip = player.board.ships.find(ship => {
+            let shipCords = middleCords(ship.start, ship.end)
+            return shipCords.some(cord => cord[0] === x && cord[1] === y)
+        })
+
         if (player.board.receiveAttack([x, y])) {
             hits.push(cell)
             cellsStruck.push([x, y])
             cell.classList.add('hit')
             cell.isHit = true
-            console.log(player.board.ships)
+            updatePlayerList(hitShip)
+            // console.log(player.board.ships.length)
+            if(player.board.ships.length === 0) {
+                console.log('Computer Wins!!')
+            }
         } else {
             cell.classList.add('missed')
             cellsStruck.push([x, y])
@@ -221,11 +230,21 @@ document.addEventListener('DOMContentLoaded', () => {
         let x = parseInt(cell.dataset.x)
         let y = parseInt(cell.dataset.y)
         let coords = [x, y]
+
+        let hitShip = computer.board.ships.find(ship => {
+            let shipCords = middleCords(ship.start, ship.end)
+            return shipCords.some(cord => cord[0] === x && cord[1] === y)
+        })
+
         if (computer.board.receiveAttack([x, y])) {
             hits.push(cell)
             cell.classList.add('hit')
             cell.isHit = true
-            console.log(computer.board.ship.type)
+            updateComputerList(hitShip)
+            console.log(computer.board.ships.length)
+            if (computer.board.ships.length === 0) {
+                console.log('Player Wins!!')
+            }
         } else {
             cell.classList.add('missed')
             cell.isHit = true
@@ -627,6 +646,172 @@ document.addEventListener('DOMContentLoaded', () => {
         startGame()
     })
 
+    function updatePlayerList(hitShip) {
+        if (hitShip.type === 'carrier') {
+            carrierHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                carrierHits.classList.add('onehit')
+            } else if (hitShip.hits === 2) {
+                carrierHits.classList.add('twohit')
+            } else if (hitShip.hits === 3) {
+                carrierHits.classList.add('threehit')
+            } else if (hitShip.hits === 4) {
+                carrierHits.classList.add('fourhit')
+            } else if (hitShip.hits === 5) {
+                carrierHits.classList.add('fivehit')
+            }
+
+            if (hitShip.sunk === true) {
+                carrierSunk.textContent = 'Yes'
+                carrierSunk.classList.add('listshipsunk')
+            }
+        } else if (hitShip.type === 'battleship') {
+            battleshipHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                battleshipHits.classList.add('onehit')
+            } else if (hitShip.hits === 2) {
+                battleshipHits.classList.add('twohit')
+            } else if (hitShip.hits === 3) {
+                battleshipHits.classList.add('fourhit')
+            } else if (hitShip.hits === 4) {
+                battleshipHits.classList.add('fivehit')
+            }
+
+            if (hitShip.sunk === true) {
+                battleshipSunk.textContent = 'Yes'
+                battleshipSunk.classList.add('listshipsunk')
+            }
+
+        } else if (hitShip.type === 'cruiser') {
+            cruiserHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                cruiserHits.classList.add('onehit')
+            } else if (hitShip.hits === 2) {
+                cruiserHits.classList.add('threehit')
+            } else if (hitShip.hits === 3) {
+                cruiserHits.classList.add('fivehit')
+            }
+            
+            if (hitShip.sunk === true) {
+                cruiserSunk.textContent = 'Yes'
+                cruiserSunk.classList.add('listshipsunk')
+            }
+        } else if (hitShip.type === 'submarine') {
+            submarineHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                submarineHits.classList.add('onehit')
+            } else if (hitShip.hits === 2) {
+                submarineHits.classList.add('threehit')
+            } else if (hitShip.hits === 3) {
+                submarineHits.classList.add('fivehit')
+            }
+
+            if (hitShip.sunk === true) {
+                submarineSunk.textContent = 'Yes'
+                submarineSunk.classList.add('listshipsunk')
+            }
+        } else if (hitShip.type === 'destroyer') {
+            destroyerHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                destroyerHits.classList.add('threehit')
+            } else if (hitShip.hits === 2) {
+                destroyerHits.classList.add('fivehit')
+            }
+
+            if (hitShip.sunk === true) {
+                destroyerSunk.textContent = 'Yes'
+                destroyerSunk.classList.add('listshipsunk')
+            }
+        }
+    }
+
+    function updateComputerList(hitShip) {
+        if (hitShip.type === 'carrier') {
+            computerCarrierHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                computerCarrierHits.classList.add('onehit')
+            }else if (hitShip.hits === 2) {
+                computerCarrierHits.classList.add('twohit')
+            } else if (hitShip.hits === 3) {
+                computerCarrierHits.classList.add('threehit')
+            } else if (hitShip.hits === 4) {
+                computerCarrierHits.classList.add('fourhit')
+            } else if (hitShip.hits === 5) {
+                computerCarrierHits.classList.add('fivehit')
+            }
+
+            if (hitShip.sunk === true) {
+                computerCarrierSunk.textContent = 'Yes'
+                computerCarrierSunk.classList.add('listshipsunk')
+            }
+        } else if (hitShip.type === 'battleship') {
+            computerBattleshipHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                computerBattleshipHits.classList.add('onehit')
+            } else if (hitShip.hits === 2) {
+                computerBattleshipHits.classList.add('twohit')
+            } else if (hitShip.hits === 3) {
+                computerBattleshipHits.classList.add('fourhit')
+            } else if (hitShip.hits === 4) {
+                computerBattleshipHits.classList.add('fivehit')
+            }
+
+            if (hitShip.sunk === true) {
+                computerBattleshipSunk.textContent = 'Yes'
+                computerBattleshipSunk.classList.add('listshipsunk')
+            }
+        } else if (hitShip.type === 'cruiser') {
+            computerCruiserHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                computerCruiserHits.classList.add('onehit')
+            } else if (hitShip.hits === 2) {
+                computerCruiserHits.classList.add('threehit')
+            } else if (hitShip.hits === 3) {
+                computerCruiserHits.classList.add('fivehit')
+            }
+
+            if (hitShip.sunk === true) {
+                computerCruiserSunk.textContent = 'Yes'
+                computerCruiserSunk.classList.add('listshipsunk')
+            }
+        } else if (hitShip.type === 'submarine') {
+            computerSubmarineHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                computerSubmarineHits.classList.add('onehit')
+            } else if (hitShip.hits === 2) {
+                computerSubmarineHits.classList.add('threehit')
+            } else if (hitShip.hits === 3) {
+                computerSubmarineHits.classList.add('fivehit')
+            }
+
+            if (hitShip.sunk === true) {
+                computerSubmarineSunk.textContent = 'Yes'
+                computerSubmarineSunk.classList.add('listshipsunk')
+            }
+        } else if (hitShip.type === 'destroyer') {
+            computerDestroyerHits.textContent = hitShip.hits
+
+            if (hitShip.hits === 1) {
+                computerDestroyerHits.classList.add('threehit')
+            } else if (hitShip.hits === 2) {
+                computerDestroyerHits.classList.add('fivehit')
+            }
+
+            if (hitShip.sunk === true) {
+                computerDestroyerSunk.textContent = 'Yes'
+                computerDestroyerSunk.classList.add('listshipsunk')
+            }
+        }
+    }
 
 
 
