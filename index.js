@@ -32,8 +32,7 @@ class Gameboard {
     missed = []
     shipsSunk = false
     placeShip([x,y], [x2,y2], type) {
-        this.type = type
-        this.ship = new Ship([x,y], [x2, y2])
+        this.ship = new Ship([x,y], [x2, y2], type)
         this.ships.push(this.ship)
     }
     receiveAttack([x, y]) {

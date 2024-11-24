@@ -29,6 +29,42 @@ document.addEventListener('DOMContentLoaded', () => {
     let cruiser = false
     let submarine = false
     let destroyer = false
+
+    const carrierTitle = document.querySelector('.carrierlisttitle')
+    const battleshipTitle = document.querySelector('.battleshiplisttitle')
+    const cruiserTitle = document.querySelector('.cruiserlisttitle')
+    const submarineTitle = document.querySelector('.submarinelisttitle')
+    const destroyerTitle = document.querySelector('.destroyerlisttitle')
+
+    const carrierHits = document.querySelector('#carrierlisthits')
+    const battleshipHits = document.querySelector('#battleshiplisthits')
+    const cruiserHits = document.querySelector('#cruiserlisthits')
+    const submarineHits = document.querySelector('#submarinelisthits')
+    const destroyerHits = document.querySelector('#destroyerlisthits')
+
+    const carrierSunk = document.querySelector('#carrierlistsunk')
+    const battleshipSunk = document.querySelector('#battleshiplistsunk')
+    const cruiserSunk = document.querySelector('#cruiserlistsunk')
+    const submarineSunk = document.querySelector('#submarinelistsunk')
+    const destroyerSunk = document.querySelector('#destroyerlistsunk')
+
+    const computerCarrierTitle = document.querySelector('.computercarrierlisttitle')
+    const computerBattleshipTitle = document.querySelector('.computerbattleshiplisttitle')
+    const computerCruiserTitle = document.querySelector('.computercruiserlisttitle')
+    const computerSubmarineTitle = document.querySelector('.computersubmarinelisttitle')
+    const computerDestroyerTitle = document.querySelector('.computerdestroyerlisttitle')
+
+    const computerCarrierHits = document.querySelector('#computercarrierlisthits')
+    const computerBattleshipHits = document.querySelector('#computerbattleshiplisthits')
+    const computerCruiserHits = document.querySelector('#computercruiserlisthits')
+    const computerSubmarineHits = document.querySelector('#computersubmarinelisthits')
+    const computerDestroyerHits = document.querySelector('#computerdestroyerlisthits')
+
+    const computerCarrierSunk = document.querySelector('#computercarrierlistsunk')
+    const computerBattleshipSunk = document.querySelector('#computerbattleshiplistsunk')
+    const computerCruiserSunk = document.querySelector('#computercruiserlistsunk')
+    const computerSubmarineSunk = document.querySelector('#computersubmarinelistsunk')
+    const computerDestroyerSunk = document.querySelector('#computerdestroyerlistsunk')
     
     let cellsStruck = []
 
@@ -189,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
             hits.push(cell)
             cell.classList.add('hit')
             cell.isHit = true
-
+            console.log(computer.board.ship.type)
         } else {
             cell.classList.add('missed')
             cell.isHit = true
@@ -517,9 +553,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     occupiedCords.push(...getBufferZone(fullShipCords))
                     placedShips.push([shipName, startCords, endCords, 'vert'])
                     if (boardID === 'playerboard') {
-                        player.board.placeShip(startCords, endCords)
+                        player.board.placeShip(startCords, endCords, ship.name)
                     } else if (boardID === 'computerboard') {
-                        computer.board.placeShip(startCords, endCords)
+                        computer.board.placeShip(startCords, endCords, ship.name)
                     }
 
 
@@ -546,9 +582,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     occupiedCords.push(...getBufferZone(fullShipCords))
                     placedShips.push([shipName, startCords, endCords, 'hori'])
                     if (boardID === 'playerboard') {
-                        player.board.placeShip(startCords, endCords)
+                        player.board.placeShip(startCords, endCords, shipName)
                     } else if (boardID === 'computerboard') {
-                        computer.board.placeShip(startCords, endCords)
+                        computer.board.placeShip(startCords, endCords, shipName)
                     }
 
                 }
