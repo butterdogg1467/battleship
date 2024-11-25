@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
             cordInputs.removeChild(shipTypesButtons)
             dragDropShipContainer.classList.add('dragdropshipcontainer')
             cordInputs.appendChild(dragDropShipContainer)
-
         }
     }
     
