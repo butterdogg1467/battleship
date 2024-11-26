@@ -72,6 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let cellsStruck = []
     let dragDropOn = false
     let dragDropShipContainer = document.createElement('div')
+    let carrierDrag = document.createElement('div')
+    let battleshipDrag = document.createElement('div')
+    let cruiserDrag = document.createElement('div')
+    let submarineDrag = document.createElement('div')
+    let destroyerDrag = document.createElement('div')
 
     cordsdisplay.textContent = '(' + 0 + ', '+ 0 + ')'
 
@@ -80,12 +85,26 @@ document.addEventListener('DOMContentLoaded', () => {
             cordInputs.removeChild(dragDropShipContainer)
             cordInputs.appendChild(shipTypesButtons)
             dragDropOn = false
+            dragAndDropCreateShips()
         } else {
             dragDropOn = true
             cordInputs.removeChild(shipTypesButtons)
             dragDropShipContainer.classList.add('dragdropshipcontainer')
             cordInputs.appendChild(dragDropShipContainer)
         }
+    }
+
+    function dragAndDropCreateShips() {
+        carrierDrag.classList.add('dragcarrier')
+        dragDropShipContainer.appendChild(carrierDrag)
+        battleshipDrag.classList.add('dragbattleship')
+        dragDropShipContainer.appendChild(battleshipDrag)
+        cruiserDrag.classList.add('dragcruiser')
+        dragDropShipContainer.appendChild(cruiserDrag)
+        submarineDrag.classList.add('dragsubmarine')
+        dragDropShipContainer.appendChild(submarineDrag)
+        destroyerDrag.classList.add('dragdestroyer')
+        dragDropShipContainer.appendChild(destroyerDrag)
     }
     
     dragDropToggle.addEventListener('click', () => {

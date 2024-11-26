@@ -19,6 +19,10 @@ html {
     background: linear-gradient(#4B4D59, #4B7E9B);
 }
 
+html, body {
+    cursor: url("cursor.ico"), default;
+}
+
 .maintitle {
     font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 150px;
@@ -372,14 +376,56 @@ th {
 }
 
 .dragdropshipcontainer {
-    background-color: red;
+    border: 2px solid black;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 443.61px;
     height: 300px;
 }
 
+footer {
+    width: 100vw;
+    text-align: center;
+    font-family: "ITC Machine Medium", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 12px;
+}
 
+.dragcarrier {
+    width: 325px;
+    height: 65px;
+    background-color: gray;
+    border: 1px solid black;
+}
 
+.dragbattleship {
+    width: 260px;
+    height: 65px;
+    background-color: gray;
+    border: 1px solid black;
+}
 
+.dragcruiser {
+    width: 195px;
+    height: 65px;
+    background-color: gray;
+    border: 1px solid black;
+}
+
+.dragsubmarine {
+    width: 195px;
+    height: 65px;
+    background-color: gray;
+    border: 1px solid black;
+}
+
+.dragdestroyer {
+    width: 130px;
+    height: 65px;
+    background-color: gray;
+    border: 1px solid black;
+}
 
 
 
