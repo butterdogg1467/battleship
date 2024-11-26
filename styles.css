@@ -427,5 +427,12 @@ footer {
     border: 1px solid black;
 }
 
+.dragover {
+    background-color: skyblue;
+}
+
+.beingdragged {
+    background-color: lightblue;
+}
 
 

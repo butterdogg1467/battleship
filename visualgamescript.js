@@ -85,25 +85,74 @@ document.addEventListener('DOMContentLoaded', () => {
             cordInputs.removeChild(dragDropShipContainer)
             cordInputs.appendChild(shipTypesButtons)
             dragDropOn = false
-            dragAndDropCreateShips()
         } else {
             dragDropOn = true
             cordInputs.removeChild(shipTypesButtons)
             dragDropShipContainer.classList.add('dragdropshipcontainer')
             cordInputs.appendChild(dragDropShipContainer)
+            dragAndDropCreateShips()
         }
     }
 
     function dragAndDropCreateShips() {
         carrierDrag.classList.add('dragcarrier')
+        carrierDrag.type = 'carrier'
+        carrierDrag.setAttribute('draggable', true)
+        carrierDrag.addEventListener('dragstart', () => {
+            event.dataTransfer.setData('text/plain', carrierDrag.type)
+            carrierDrag.classList.add('beingdragged')
+        })
+        carrierDrag.addEventListener('dragend', () => {
+
+        })
         dragDropShipContainer.appendChild(carrierDrag)
+
         battleshipDrag.classList.add('dragbattleship')
+        battleshipDrag.type = 'battleship'
+        battleshipDrag.setAttribute('draggable', true)
+        battleshipDrag.addEventListener('dragstart', () => {
+            event.dataTransfer.setData('text/plain', battleshipDrag.type)
+            battleshipDrag.classList.add('beingdragged')
+        })
+        battleshipDrag.addEventListener('dragend', () => {
+
+        })
         dragDropShipContainer.appendChild(battleshipDrag)
+
         cruiserDrag.classList.add('dragcruiser')
+        cruiserDrag.type = 'cruiser'
+        cruiserDrag.setAttribute('draggable', true)
+        cruiserDrag.addEventListener('dragstart', () => {
+            event.dataTransfer.setData('text/plain', cruiserDrag.type)
+            cruiserDrag.classList.add('beingdragged')
+        })
+        cruiserDrag.addEventListener('dragend', () => {
+
+        })
         dragDropShipContainer.appendChild(cruiserDrag)
+
         submarineDrag.classList.add('dragsubmarine')
+        submarineDrag.type = 'submarine'
+        submarineDrag.setAttribute('draggable', true)
+        submarineDrag.addEventListener('dragstart', () => {
+            event.dataTransfer.setData('text/plain', submarineDrag.type)
+            submarineDrag.classList.add('beingdragged')
+        })
+        submarineDrag.addEventListener('dragend', () => {
+
+        })
         dragDropShipContainer.appendChild(submarineDrag)
+
         destroyerDrag.classList.add('dragdestroyer')
+        destroyerDrag.type = 'destroyer'
+        destroyerDrag.setAttribute('draggable', true)
+        destroyerDrag.addEventListener('dragstart', () => {
+            event.dataTransfer.setData('text/plain', destroyerDrag.type)
+            destroyerDrag.classList.add('beingdragged')
+        })
+        destroyerDrag.addEventListener('dragend', () => {
+
+        })
         dragDropShipContainer.appendChild(destroyerDrag)
     }
     
@@ -120,6 +169,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.dataset.x = j
                 cell.dataset.y = i
                 cell.classList.add('cell')
+                cell.addEventListener('dragover', () => {
+                    
+                })
+                cell.addEventListener('drop', () => {
+                    
+                })
                 board.appendChild(cell)
                 cell.addEventListener('mouseover', () => {
                     cordsdisplay.textContent = '(' + cell.dataset.x + ', '+ cell.dataset.y + ')'
