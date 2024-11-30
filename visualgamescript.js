@@ -94,64 +94,131 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function getGridPos(event, board) {
+        let rect = board.getBoundingClientRect()
+        let x = Math.floor((event.clientX - rect.left) / 65)
+        let y = 9 - Math.floor((event.clientY - rect.top) / 65)
+        return [x, y]
+    }
+
     function dragAndDropCreateShips() {
         carrierDrag.classList.add('dragcarrier')
         carrierDrag.type = 'carrier'
+        carrierDrag.dataset.length = '5'
+        carrierDrag.dataset.rotation = 'horizontal'
         carrierDrag.setAttribute('draggable', true)
-        carrierDrag.addEventListener('dragstart', () => {
+        carrierDrag.addEventListener('dragstart', (event) => {
             event.dataTransfer.setData('text/plain', carrierDrag.type)
             carrierDrag.classList.add('beingdragged')
         })
-        carrierDrag.addEventListener('dragend', () => {
-
+        carrierDrag.addEventListener('dragend', (event) => {
+            carrierDrag.classList.remove('beingdragged')
+        })
+        carrierDrag.addEventListener('contextmenu', (event) => {
+            event.preventDefault()
+            if (carrierDrag.dataset.rotation === 'horizontal') {
+                carrierDrag.dataset.rotation = 'vertical'
+                carrierDrag.style.transform = 'rotate(90deg)'
+            } else {
+                carrierDrag.dataset.rotation = 'horizontal'
+                carrierDrag.style.transform = 'rotate(0deg)'
+            }
         })
         dragDropShipContainer.appendChild(carrierDrag)
 
         battleshipDrag.classList.add('dragbattleship')
         battleshipDrag.type = 'battleship'
+        battleshipDrag.dataset.length = '4'
+        battleshipDrag.dataset.rotation = 'horizontal'
         battleshipDrag.setAttribute('draggable', true)
-        battleshipDrag.addEventListener('dragstart', () => {
+        battleshipDrag.addEventListener('dragstart', (event) => {
             event.dataTransfer.setData('text/plain', battleshipDrag.type)
             battleshipDrag.classList.add('beingdragged')
         })
-        battleshipDrag.addEventListener('dragend', () => {
-
+        battleshipDrag.addEventListener('dragend', (event) => {
+            battleshipDrag.classList.remove('beingdragged')
+        })
+        battleshipDrag.addEventListener('contextmenu', (event) => {
+            event.preventDefault()
+            if (battleshipDrag.dataset.rotation === 'horizontal') {
+                battleshipDrag.dataset.rotation = 'vertical'
+                battleshipDrag.style.transform = 'rotate(90deg)'
+            } else {
+                battleshipDrag.dataset.rotation = 'horizontal'
+                battleshipDrag.style.transform = 'rotate(0deg)'
+            }
         })
         dragDropShipContainer.appendChild(battleshipDrag)
 
         cruiserDrag.classList.add('dragcruiser')
         cruiserDrag.type = 'cruiser'
+        cruiserDrag.dataset.length = '3'
+        cruiserDrag.dataset.rotation = 'horizontal'
         cruiserDrag.setAttribute('draggable', true)
-        cruiserDrag.addEventListener('dragstart', () => {
+        cruiserDrag.addEventListener('dragstart', (event) => {
             event.dataTransfer.setData('text/plain', cruiserDrag.type)
             cruiserDrag.classList.add('beingdragged')
         })
-        cruiserDrag.addEventListener('dragend', () => {
-
+        cruiserDrag.addEventListener('dragend', (event) => {
+            cruiserDrag.classList.remove('beingdragged')
+        })
+        cruiserDrag.addEventListener('contextmenu', (event) => {
+            event.preventDefault()
+            if (cruiserDrag.dataset.rotation === 'horizontal') {
+                cruiserDrag.dataset.rotation = 'vertical'
+                cruiserDrag.style.transform = 'rotate(90deg)'
+            } else {
+                cruiserDrag.dataset.rotation = 'horizontal'
+                cruiserDrag.style.transform = 'rotate(0deg)'
+            }
         })
         dragDropShipContainer.appendChild(cruiserDrag)
 
         submarineDrag.classList.add('dragsubmarine')
         submarineDrag.type = 'submarine'
+        submarineDrag.dataset.length = '3'
+        submarineDrag.dataset.rotation = 'horizontal'
         submarineDrag.setAttribute('draggable', true)
-        submarineDrag.addEventListener('dragstart', () => {
+        submarineDrag.addEventListener('dragstart', (event) => {
             event.dataTransfer.setData('text/plain', submarineDrag.type)
             submarineDrag.classList.add('beingdragged')
         })
-        submarineDrag.addEventListener('dragend', () => {
-
+        submarineDrag.addEventListener('dragend', (event) => {
+            submarineDrag.classList.remove('beingdragged')
+        })
+        submarineDrag.addEventListener('contextmenu', (event) => {
+            event.preventDefault()
+            if (submarineDrag.dataset.rotation === 'horizontal') {
+                submarineDrag.dataset.rotation = 'vertical'
+                submarineDrag.style.transform = 'rotate(90deg)'
+            } else {
+                submarineDrag.dataset.rotation = 'horizontal'
+                submarineDrag.style.transform = 'rotate(0deg)'
+            }
         })
         dragDropShipContainer.appendChild(submarineDrag)
 
         destroyerDrag.classList.add('dragdestroyer')
         destroyerDrag.type = 'destroyer'
+        destroyerDrag.dataset.length = '2'
+        destroyerDrag.dataset.rotation = 'horizontal'
         destroyerDrag.setAttribute('draggable', true)
-        destroyerDrag.addEventListener('dragstart', () => {
+        destroyerDrag.addEventListener('dragstart', (event) => {
             event.dataTransfer.setData('text/plain', destroyerDrag.type)
             destroyerDrag.classList.add('beingdragged')
         })
-        destroyerDrag.addEventListener('dragend', () => {
-
+        destroyerDrag.addEventListener('dragend', (event) => {
+            destroyerDrag.classList.remove('beingdragged')
+        })
+        destroyerDrag.addEventListener('contextmenu', (event) => {
+            event.preventDefault()
+            if (destroyerDrag.dataset.rotation === 'horizontal') {
+                destroyerDrag.dataset.rotation = 'vertical'
+                destroyerDrag.style.transform = 'rotate(90deg)'
+            } else {
+                destroyerDrag.dataset.rotation = 'horizontal'
+                destroyerDrag.style.transform = 'rotate(0deg)'
+            }
         })
         dragDropShipContainer.appendChild(destroyerDrag)
     }
@@ -159,6 +226,45 @@ document.addEventListener('DOMContentLoaded', () => {
     dragDropToggle.addEventListener('click', () => {
         toggleDragDrop()
     })
+
+    function placeDragDropShips(shipType, startPos, rotation) {
+        let ships = {
+            carrier: 5,
+            battleship: 4,
+            cruiser: 3,
+            submarine: 3,
+            destroyer: 2
+        }
+        
+        let dragShipLength = ships[shipType]
+        let endPos
+
+        if (rotation === 'horizontal') {
+            endPos = [startPos[0] + dragShipLength - 1, startPos[1]]
+            console.log(endPos)
+        } else if (rotation === 'vertical') {
+            endPos = [startPos[0], startPos[1] + dragShipLength - 1]
+            console.log(endPos)
+        }
+        
+        if (startPos[0] <= 9 && startPos[1] <= 9 && startPos[0] >= 0 && startPos[1] >= 0 && endPos[0] <= 9 && endPos[1] <= 9 && endPos[0] >= 0 && endPos[1] >= 0 ) {
+            if (!checkPlacement(startPos, endPos, "playerboard")) {
+                player.board.placeShip(startPos, endPos, shipType)
+                shipVisual(middleCords(startPos, endPos), 'playerboard')
+                return true
+            }
+
+            return false
+        } else {
+            errorDisplay.classList.add('errorpresent')
+            errorOne.textContent = "ERROR: Ship does not fit inside board!"
+            console.log(startPos)
+            setTimeout(removeErorrClass, 5000)
+            return
+        }
+        
+    }
+
     
     function createBoard(boardID) {
         let board = document.getElementById(boardID)
@@ -169,11 +275,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.dataset.x = j
                 cell.dataset.y = i
                 cell.classList.add('cell')
-                cell.addEventListener('dragover', () => {
-                    
+                cell.addEventListener('dragover', (event) => {
+                    event.preventDefault()
+                    let board = document.getElementById('playerboard')
+                    let pos = getGridPos(event, board)
+                    let ship = document.querySelector('.beingdragged')
                 })
-                cell.addEventListener('drop', () => {
-                    
+                cell.addEventListener('drop', (event) => {
+                    event.preventDefault()
+                    let dragShipType = event.dataTransfer.getData('text/plain')
+                    let dragShipRotation = document.querySelector('.beingdragged').dataset.rotation
+                    let startPos = getGridPos(event, board)
+    
+                    if (placeDragDropShips(dragShipType, startPos, dragShipRotation)) {
+                        document.querySelector('.beingdragged').remove()
+                    }
                 })
                 board.appendChild(cell)
                 cell.addEventListener('mouseover', () => {
@@ -479,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return
             }
 
-            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'carrier')
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 carrier = false
@@ -506,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return
             }
 
-            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'battleship')
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 battleship = false
@@ -533,7 +649,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return
             }
 
-            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'cruiser')
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 cruiser = false
@@ -560,7 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return
             }
 
-            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'submarine')
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 submarine = false
@@ -587,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return
             }
 
-            player.board.placeShip(shipCordsStartArr, shipCordsEndArr)
+            player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'destroyer')
                 checkPlacement(shipCordsStartArr, shipCordsEndArr)
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 destroyer = false
@@ -757,6 +873,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cruiserButton.disabled = true
             submarineButton.disabled = true
             destroyerButton.disabled = true
+            dragDropToggle.disabled = true
             startButton.textContent = "Game started!"
         } else if (player.board.ships.length < 5) {
             errorDisplay.classList.add('errorpresent')

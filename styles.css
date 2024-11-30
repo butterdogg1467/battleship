@@ -85,7 +85,7 @@ header {
 }
 
 .cell:hover {
-    background-color: rgba(128, 0, 0, 0.8);
+    border: 5px solid rgba(128, 0, 0, 0.8);
 }
 
 .playerstuff {
@@ -425,6 +425,13 @@ footer {
     height: 65px;
     background-color: gray;
     border: 1px solid black;
+}
+.dragcarrier:hover,
+.dragbattleship:hover,
+.dragcruiser:hover,
+.dragsubmarine:hover,
+.dragdestroyer:hover {
+    background-color: lightblue;
 }
 
 .dragover {
