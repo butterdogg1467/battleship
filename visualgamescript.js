@@ -85,11 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
             cordInputs.removeChild(dragDropShipContainer)
             cordInputs.appendChild(shipTypesButtons)
             dragDropOn = false
+            dragDropToggle.textContent = 'Drag & Drop'
         } else {
             dragDropOn = true
             cordInputs.removeChild(shipTypesButtons)
             dragDropShipContainer.classList.add('dragdropshipcontainer')
             cordInputs.appendChild(dragDropShipContainer)
+            dragDropToggle.textContent = 'Drag & Drop (Right click before dragging to rotate)'
             dragAndDropCreateShips()
         }
     }
@@ -583,6 +585,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let shipCordsStartArr = JSON.parse("[" + shipCordsStart + "]")
         let shipCordsEndArr = JSON.parse("[" + shipCordsEnd + "]")
 
+        console.log(shipCordsStartArr, shipCordsEndArr)
+
         if (carrier === true) {
             if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 5) {
                 errorDisplay.classList.add('errorpresent')
@@ -596,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'carrier')
-                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                 
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 carrier = false
                 carrierButton.disabled = true
@@ -623,7 +627,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'battleship')
-                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                 
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 battleship = false
                 battleshipButton.disabled = true
@@ -650,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'cruiser')
-                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                 
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 cruiser = false
                 cruiserButton.disabled = true
@@ -677,7 +681,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'submarine')
-                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                 
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 submarine = false
                 submarineButton.disabled = true
@@ -704,7 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             player.board.placeShip(shipCordsStartArr, shipCordsEndArr, 'destroyer')
-                checkPlacement(shipCordsStartArr, shipCordsEndArr)
+                 
                 shipVisual(middleCords(shipCordsStartArr, shipCordsEndArr), 'playerboard')
                 destroyer = false
                 destroyerButton.disabled = true
@@ -812,6 +816,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     placedShips.push([shipName, startCords, endCords, 'vert'])
                     if (boardID === 'playerboard') {
                         player.board.placeShip(startCords, endCords, ship.name)
+                        console.log(startCords, endCords)
                     } else if (boardID === 'computerboard') {
                         computer.board.placeShip(startCords, endCords, ship.name)
                     }
