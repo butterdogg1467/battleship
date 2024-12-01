@@ -581,9 +581,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         let shipCordsStart = startCordsBox.value   
         let shipCordsEnd = endCordsBox.value
+        
+        let scs0 = shipCordsStart.slice(0, 1)
+        let scs1 = shipCordsStart.slice(3, 4)
+        let sce0 = shipCordsEnd.slice(0, 1)
+        let sce1 = shipCordsEnd.slice(3, 4)
 
-        let shipCordsStartArr = JSON.parse("[" + shipCordsStart + "]")
-        let shipCordsEndArr = JSON.parse("[" + shipCordsEnd + "]")
+        let scs0Num = Number(scs0)
+        let scs1Num = Number(scs1)
+        let sce0Num = Number(sce0)
+        let sce1Num = Number(sce1)
+
+        let shipCordsStartArr = []
+        let shipCordsEndArr = []
+
+        shipCordsStartArr.push(scs0Num)
+        shipCordsStartArr.push(scs1Num)
+
+        shipCordsEndArr.push(sce0Num)
+        shipCordsEndArr.push(sce1Num)
+
+        // console.log(scs0Num, scs1Num)
+        // console.log(sce0Num, sce1Num)
+
+        // console.log(scs0, scs1)
+        // console.log(sce0, sce1)
 
         console.log(shipCordsStartArr, shipCordsEndArr)
 
