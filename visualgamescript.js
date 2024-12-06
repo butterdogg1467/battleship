@@ -1,3 +1,4 @@
+import './styles.css'
 document.addEventListener('DOMContentLoaded', () => {
 
     let { Ship, Gameboard, Players } = require('./index.js');
