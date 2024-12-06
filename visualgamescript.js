@@ -476,8 +476,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //     console.log(changedCords, changeDirectionWord)
     // }
-
-    adjacentCordFinder([0, 5])
     
     function computerHit(boardID) {
         let hits = []
@@ -504,6 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updatePlayerList(hitShip)
             if(player.board.ships.length === 0) {
                 gameEnd('computerboard')
+                return
             }
         } else {
             cell.classList.add('missed')
