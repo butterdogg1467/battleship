@@ -428,6 +428,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
     }
+
+    // function adjacentCordFinder(cords) {
+    //     let xOrY = Math.random()
+    //     let xOrYRounded = xOrY.toFixed(1)
+
+
+    //     let changeIndex
+
+    //     let changedCords = []
+
+    //     let changeDirection = Math.random()
+    //     let changeDirectionRounded = changeDirection.toFixed(1)
+    //     let changeDirectionWord
+
+    //     if (xOrYRounded < 0.5) {
+    //         changeIndex = 0
+    //     } else if (xOrYRounded >= 0.5) {
+    //         changeIndex = 1
+    //     }
+
+    //     if (changeDirectionRounded < 0.5) {
+    //         changeDirectionWord = 'up'
+    //     } else if (changeDirectionRounded >= 0.5) {
+    //         changeDirectionWord = 'down'
+    //     }
+
+    //     if (changeIndex === 0 && changeDirectionWord === 'up') {
+    //         changedCords = [cords[changeIndex] + 1, cords[1]]
+    //     } else if (changeIndex === 0 && changeDirectionWord === 'down') {
+    //         changedCords = [cords[changeIndex] - 1, cords[1]]
+    //     } else if (changeIndex === 1 && changeDirectionWord === 'up') {
+    //         changedCords = [cords[0], cords[changeIndex] + 1]
+    //     } else if (changeIndex === 1 && changeDirectionWord === 'down') {
+    //         changedCords = [cords[0], cords[changeIndex] - 1]
+    //     }
+
+    //     if (changedCords[0] > 9 && changedCords[1] <= 9 && 
+    //         changeDirectionWord === 'up'){
+    //         changedCords = [changedCords[0] - 2, changedCords[1]]
+    //         console.log('subrtraced')
+    //     } else if (changedCords[0] > 9 && changedCords[1] <= 9 && 
+    //         changeDirectionWord === 'down'){
+    //         changedCords = [changedCords[0] + 2, changedCords[1]]
+    //         console.log('subrtraced')
+    //     } 
+
+    //     console.log(changedCords, changeDirectionWord)
+    // }
+
+    adjacentCordFinder([0, 5])
     
     function computerHit(boardID) {
         let hits = []
@@ -601,13 +651,6 @@ document.addEventListener('DOMContentLoaded', () => {
         shipCordsEndArr.push(sce0Num)
         shipCordsEndArr.push(sce1Num)
 
-        // console.log(scs0Num, scs1Num)
-        // console.log(sce0Num, sce1Num)
-
-        // console.log(scs0, scs1)
-        // console.log(sce0, sce1)
-
-        console.log(shipCordsStartArr, shipCordsEndArr)
 
         if (carrier === true) {
             if (getShipLength(shipCordsStartArr, shipCordsEndArr) !== 5) {
